@@ -11,5 +11,6 @@ target 'Wallet' do
     pod 'MBProgressHUD', '~> 1.2.0'
     pod 'SDWebImage', '~> 5.0'
     pod 'Reachability'
+    pod 'SGQRCode', '~> 3.5.0'
 
 end

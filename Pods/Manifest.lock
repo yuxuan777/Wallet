@@ -19,12 +19,14 @@ PODS:
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
+  - SGQRCode (3.5.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0.1)
   - MBProgressHUD (~> 1.2.0)
   - Reachability
   - SDWebImage (~> 5.0)
+  - SGQRCode (~> 3.5.0)
 
 SPEC REPOS:
   trunk:
@@ -32,13 +34,15 @@ SPEC REPOS:
     - MBProgressHUD
     - Reachability
     - SDWebImage
+    - SGQRCode
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SGQRCode: d92dd8bd2af665b7e0d76098c5b70e59d2a2609f
 
-PODFILE CHECKSUM: 42e3b6c816755a58c559cf144cfbbe33a7996eed
+PODFILE CHECKSUM: a26a4a14621cb0611a6534c95a942c39bc257f0f
 
 COCOAPODS: 1.10.1
