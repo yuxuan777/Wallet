@@ -7,6 +7,8 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "LoginVC.h"
+#import <QMUIKit/QMUIKit.h>
 
 @interface AppDelegate ()
 
@@ -20,8 +22,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    ViewController *vc = [[ViewController alloc] init];
-    self.window.rootViewController = vc;
+//    ViewController *vc = [[ViewController alloc] init];
+    
+    LoginVC *vc = [[LoginVC alloc] init];
+    QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
+    
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     
     return YES;

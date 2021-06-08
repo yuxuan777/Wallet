@@ -6,6 +6,8 @@
 //
 
 #import "ViewController.h"
+#import "LoginVC.h"
+#import "UIViewController+CurrentVC.h"
 
 @interface ViewController ()
 
@@ -19,5 +21,8 @@
     
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+}
 
 @end
