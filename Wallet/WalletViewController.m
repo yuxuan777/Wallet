@@ -6,7 +6,7 @@
 //
 
 #import "WalletViewController.h"
-
+#import "SGQRCode.h"
 @interface WalletViewController ()
 
 @property (nonatomic, strong) QMUILabel *addressLabel;
@@ -32,7 +32,7 @@
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT * 0.15)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 * ScreenNativeScale, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT * 0.15)];
     bgView.backgroundColor = [UIColor blueColor];
     bgView.layer.cornerRadius = 8;
     bgView.layer.masksToBounds = YES;
@@ -86,7 +86,9 @@
 }
 
 - (void)qrClick {
-    
+    [[SGQRCodeManager QRCodeManager]  scanWithController:self resultBlock:^(SGQRCodeManager *manager, NSString *result) {
+        NSLog(@"result");
+    }];
 }
 
 - (void)scanClick {
