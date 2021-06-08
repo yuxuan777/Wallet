@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-
+#import "WalletViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -20,8 +20,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    ViewController *vc = [[ViewController alloc] init];
-    self.window.rootViewController = vc;
+    WalletViewController *vc = [[WalletViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController =   vc;
     [self.window makeKeyAndVisible];
     
     return YES;

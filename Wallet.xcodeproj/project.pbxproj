@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7575CE0DFFF35E84E13C4B86 /* libPods-Wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A10059DA49AAF78F529A5B /* libPods-Wallet.a */; };
+		B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F33266F0B140011E12B /* WalletViewController.m */; };
 		CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB750F69266DD6CB00B12280 /* AppDelegate.m */; };
 		CB750F70266DD6CB00B12280 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB750F6F266DD6CB00B12280 /* ViewController.m */; };
 		CB750F75266DD6CD00B12280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB750F74266DD6CD00B12280 /* Assets.xcassets */; };
@@ -37,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		3CF5DC89992007FCD7C17581 /* Pods-Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wallet.release.xcconfig"; path = "Target Support Files/Pods-Wallet/Pods-Wallet.release.xcconfig"; sourceTree = "<group>"; };
+		B4E16F32266F0B140011E12B /* WalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
+		B4E16F33266F0B140011E12B /* WalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		CB750F65266DD6CB00B12280 /* Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB750F68266DD6CB00B12280 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CB750F69266DD6CB00B12280 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -97,7 +100,6 @@
 				D5B20E30C063683DEF5B1759 /* Pods-Wallet.debug.xcconfig */,
 				3CF5DC89992007FCD7C17581 /* Pods-Wallet.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -135,6 +137,8 @@
 				CB750F74266DD6CD00B12280 /* Assets.xcassets */,
 				CB750F79266DD6CD00B12280 /* Info.plist */,
 				CB750F7A266DD6CD00B12280 /* main.m */,
+				B4E16F32266F0B140011E12B /* WalletViewController.h */,
+				B4E16F33266F0B140011E12B /* WalletViewController.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -331,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB750F70266DD6CB00B12280 /* ViewController.m in Sources */,
+				B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */,
 				CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */,
 				CB750F7B266DD6CD00B12280 /* main.m in Sources */,
 			);
