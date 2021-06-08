@@ -62,7 +62,7 @@
     pwdField.placeholder = @"密码";
     pwdField.font = UIFontMake(18);
     pwdField.secureTextEntry = YES;
-    pwdField.text = @"123456";
+    pwdField.text = @"12345678";
 //    pwdField.layer.cornerRadius = 2;
 //    pwdField.layer.borderColor = UIColorSeparator.CGColor;
 //    pwdField.layer.borderWidth = PixelOne;
@@ -101,32 +101,48 @@
 - (void)requestLogin {
     NSString *name = self.nameField.text;
     NSString *pwd = self.pwdField.text;
-    
+
     NSString *encyptText = [self rsa:pwd];
-    
+
     NSDictionary *params = @{@"name": name,
                              @"pass": encyptText
     };
-    
+
+//    NSString *url = @"https://sz.ilovn.com/api/login";
     NSString *url = @"http://sz.zy.hn:8123/api/login";
+//    NSString *url = @"http://sz.zy.hn:8123/api/register";
+
+//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://sz.ilovn.com/api"]];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://sz.zy.hn:8123/api"]];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.requestSerializer.timeoutInterval = 60;
-    
-    [manager POST:url parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
+
+    [manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //{"status":"ok","msg":"登录成功","data":{"name":"cyx","token":"j3jtqmd2rCPJGgL0yq6w2rKs0lIpfzGl-afgHIJuAQE="}}
         NSDictionary *dict = responseObject;
         if ([dict[@"status"] isEqualToString:@"ok"]) {
-            
+
             [self loginSuccess:dict];
         }
-        
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"登录请求失败");
     }];
     
-//    manager POST:<#(nonnull NSString *)#> parameters:<#(nullable id)#> headers:<#(nullable NSDictionary<NSString *,NSString *> *)#> constructingBodyWithBlock:<#^(id<AFMultipartFormData>  _Nonnull formData)block#> progress:<#^(NSProgress * _Nonnull uploadProgress)uploadProgress#> success:<#^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)success#> failure:<#^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)failure#>
+//    [manager GET:@"http://sz.zy.hn:8123/api/xx123" parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSDictionary *dict = responseObject;
+//        if ([dict[@"status"] isEqualToString:@"ok"]) {
+//
+//            [self loginSuccess:dict];
+//        }
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"登录请求失败");
+//    }];
 }
 
 - (NSString *)rsa:(NSString *)pwdText {
