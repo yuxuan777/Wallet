@@ -8,6 +8,7 @@
 #import "ExchangeRateVC.h"
 #import <AFNetworking/AFNetworking.h>
 #import "User.h"
+#import "ExchangeTableViewCell.h"
 
 @interface ExchangeRateVC () <QMUITableViewDelegate, QMUITableViewDataSource>
 
@@ -34,10 +35,11 @@
 - (void)setupUI {
     self.title = @"汇率";
     
-    
 }
 
 - (void)request {
+    [self showEmptyViewWithLoading:YES image:nil text:@"加载中" detailText:nil buttonTitle: nil buttonAction:nil];
+    
     User *user = [User sharedInstance];
     if (user.token.length <= 0) {
         return;
@@ -64,9 +66,12 @@
 
             [self loginSuccess:dict];
         }
+        [self hideEmptyView];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"登录请求失败");
+        
+        [self hideEmptyView];
     }];
 }
 
@@ -80,9 +85,9 @@
     NSString *usd = [NSString stringWithFormat:@"%@", dataDic[@"usd"]];
     
     if (drmb.length > 0 && eur.length > 0 && rmb.length > 0 && usd.length > 0) {
-        self.dataArray = @[@{@"name": @"eur", @"value": eur},
-                           @{@"name": @"rmb", @"value": rmb},
-                           @{@"name": @"usd", @"value": usd}];
+        self.dataArray = @[@{@"name": @"eur", @"value": eur, @"icon": @"eur"},
+                           @{@"name": @"rmb", @"value": rmb, @"icon": @"rmb"},
+                           @{@"name": @"usd", @"value": usd, @"icon": @"logo-usd"}];
     }
     [self.tableView reloadData];
 }
@@ -97,20 +102,30 @@
 }
 
 -  (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
+//    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//    }
+    
+//    QMUITableViewCell *cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    
+    ExchangeTableViewCell *cell = [[ExchangeTableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    cell.qmui_separatorInsetsBlock = ^UIEdgeInsets(__kindof UITableView * _Nonnull tableView, __kindof UITableViewCell * _Nonnull cell) {
+        return QMUITableViewCellSeparatorInsetsNone;
+    };
+    
+//    cell.detailTextLabelEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 50);
     
     NSDictionary *dataDic = self.dataArray[indexPath.row];
     
-    cell.textLabel.text =  dataDic[@"name"];
+    cell.icon = UIImageMake(dataDic[@"icon"]);
+    cell.exchangeTitle = dataDic[@"name"];
     cell.detailTextLabel.text = dataDic[@"value"];
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"计价货币：drmb";
+    return @"    计价货币：drmb";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -118,7 +133,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20;
+    return 40;
 }
+
+//- (BOOL)shouldHideTableHeaderViewInitial {
+//    return YES;
+//}
 
 @end

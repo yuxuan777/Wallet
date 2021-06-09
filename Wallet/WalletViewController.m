@@ -198,26 +198,26 @@
     _drmbLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
     UIView *drmbView = [self createCoinUI:_drmbLabel imgName:@"b1" labelName:@"DRMB"];
     [self.view addSubview:drmbView];
-    drmbView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
-    dynamicY += 60;
+    drmbView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 50);
+    dynamicY += 50;
     
     _rmbLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
     UIView *rmbView = [self createCoinUI:_rmbLabel imgName:@"b2" labelName:@"RMB"];
     [self.view addSubview:rmbView];
-    rmbView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
-    dynamicY += 60;
+    rmbView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 50);
+    dynamicY += 50;
     
     _usdLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
     UIView *usdView = [self createCoinUI:_usdLabel imgName:@"b3" labelName:@"USD"];
     [self.view addSubview:usdView];
-    usdView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
-    dynamicY += 60;
+    usdView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 50);
+    dynamicY += 50;
     
     _eurLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
     UIView *eurView = [self createCoinUI:_eurLabel imgName:@"b4" labelName:@"EUR"];
     [self.view addSubview:eurView];
-    eurView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
-    dynamicY += 60;
+    eurView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 50);
+    dynamicY += 50;
     
      
     
@@ -257,9 +257,9 @@
     [contain addSubview:icon];
     [contain addSubview:textLabel];
     [contain addSubview:label];
-    icon.frame = CGRectMake(10, 10, 40, 40);
-    textLabel.frame = CGRectMake(60, 10, 100, 40);
-    label.frame = CGRectMake(SCREEN_WIDTH-130, 10, 100, 40);
+    icon.frame = CGRectMake(10, 10, 30, 30);
+    textLabel.frame = CGRectMake(50, 10, 100, 30);
+    label.frame = CGRectMake(SCREEN_WIDTH-130, 10, 100, 30);
     label.textAlignment = NSTextAlignmentRight;
     label.text = @"¥100";
     return contain;

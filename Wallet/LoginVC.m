@@ -14,6 +14,7 @@
 
 @interface LoginVC ()
 
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) QMUIFillButton *loginBtn;
 @property (nonatomic, strong) QMUITextField *nameField;
 @property (nonatomic, strong) QMUITextField *pwdField;
@@ -29,19 +30,21 @@
     [self setupUI];
 }
 
-//- (void)didInitialize {
-//    [super didInitialize];
-//}
-
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.title = @"登录";
     
-    [self setTitle:@"登录"];
+    CGFloat imageWH = 160;
+    CGFloat imageX = (SCREEN_WIDTH - imageWH) * 0.5;
+    CGFloat imageY = 120;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageWH, imageWH)];
+    imageView.image = UIImageMake(@"icon-1024-1");
+    [self.view addSubview:imageView];
     
     CGFloat textW = SCREEN_WIDTH - 80;
     CGFloat textH = 44;
-    CGFloat textY = 160;
+    CGFloat textY = CGRectGetMaxY(imageView.frame) + 20;
     CGFloat textX = (SCREEN_WIDTH - textW) * 0.5;
     QMUITextField *nameField = [[QMUITextField alloc] initWithFrame:CGRectMake(textX, textY, textW, textH)];
     nameField.placeholder = @"用户名";
@@ -49,7 +52,7 @@
 //    nameField.layer.cornerRadius = 2;
 //    nameField.layer.borderColor = UIColorSeparator.CGColor;
 //    nameField.layer.borderWidth = PixelOne;
-    nameField.clearButtonMode = UITextFieldViewModeAlways;
+    nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     nameField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     nameField.text = @"cyx";
     [self.view addSubview:nameField];
@@ -68,7 +71,7 @@
 //    pwdField.layer.cornerRadius = 2;
 //    pwdField.layer.borderColor = UIColorSeparator.CGColor;
 //    pwdField.layer.borderWidth = PixelOne;
-    pwdField.clearButtonMode = UITextFieldViewModeAlways;
+    pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwdField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     [self.view addSubview:pwdField];
     self.pwdField = pwdField;
@@ -80,7 +83,7 @@
     CGFloat btnX = (SCREEN_WIDTH - btnW) * 0.5;
     CGFloat btnY = CGRectGetMaxY(pwdField.frame) + 40;
     QMUIFillButton *loginBtn = [[QMUIFillButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, 44)];
-    loginBtn.fillColor = [UIColor orangeColor];
+    loginBtn.fillColor = [UIColor blackColor];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.font = UIFontMake(18);
     [self.view addSubview:loginBtn];
@@ -113,6 +116,9 @@
 
 - (void)requestLogin {
     
+//    [self showEmptyViewWithLoading];
+    [self showEmptyViewWithLoading:YES image:nil text:@"加载中" detailText:nil buttonTitle: nil buttonAction:nil];
+    
     NSString *name = self.nameField.text;
     NSString *pwd = self.pwdField.text;
 
@@ -143,9 +149,13 @@
 
             [self loginSuccess:dict];
         }
+        
+        [self hideEmptyView];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"登录请求失败");
+        
+        [self hideEmptyView];
     }];
 }
 
@@ -170,17 +180,23 @@
     
     //跳转
     QMUITabBarViewController *tabBarViewController = [[QMUITabBarViewController alloc] init];
+    tabBarViewController.tabBar.tintColor = [UIColor blackColor];
     
     //首页
     WalletViewController *walletVC = [[WalletViewController alloc] init];
-    walletVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Wallet" image:UIImageMake(@"wallet") tag:0];
-    walletVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
+    UITabBarItem *tabBarItem1 = [[UITabBarItem alloc] initWithTitle:@"钱包" image:[UIImageMake(@"钱包") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
+//    tabBarItem1.imageInsets = UIEdgeInsetsMake(5, 0, 0, 0);
+    tabBarItem1.selectedImage = [UIImageMake(@"钱包 (1)") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    walletVC.tabBarItem = tabBarItem1;
+    
     QMUINavigationController *nav1 = [[QMUINavigationController alloc] initWithRootViewController:walletVC];
     
     //汇率
     ExchangeRateVC *exchangeVC = [[ExchangeRateVC alloc] initWithStyle:UITableViewStyleGrouped];
-    exchangeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Rate" image:UIImageMake(@"wallet") tag:1];
-    exchangeVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
+    UITabBarItem *tabBarItem2 = [[UITabBarItem alloc] initWithTitle:@"汇率" image:[UIImageMake(@"汇率 (1)") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:1];
+    tabBarItem2.imageInsets = UIEdgeInsetsMake(5, 0, 0, 0);
+    tabBarItem2.selectedImage = [UIImageMake(@"汇率") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    exchangeVC.tabBarItem = tabBarItem2;
     QMUINavigationController *nav2 = [[QMUINavigationController alloc] initWithRootViewController:exchangeVC];
     
     tabBarViewController.viewControllers = @[nav1, nav2];

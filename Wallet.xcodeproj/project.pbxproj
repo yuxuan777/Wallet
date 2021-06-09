@@ -26,6 +26,7 @@
 		B4E16FC72670D8E90011E12B /* ScanQR2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB92670D8E80011E12B /* ScanQR2@2x.png */; };
 		B4E16FC82670D8E90011E12B /* Flashlight_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FBA2670D8E80011E12B /* Flashlight_H@2x.png */; };
 		CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A6526706A2D000F0957 /* ExchangeRateVC.m */; };
+		CB141A692670BCA8000F0957 /* ExchangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */; };
 		CB36594B266F159400946FCC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594A266F159400946FCC /* LoginVC.m */; };
 		CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594E266F163000946FCC /* UIViewController+CurrentVC.m */; };
 		CB365955266F572A00946FCC /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB365953266F572A00946FCC /* RSA.m */; };
@@ -88,6 +89,8 @@
 		B4E16FBA2670D8E80011E12B /* Flashlight_H@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Flashlight_H@2x.png"; sourceTree = "<group>"; };
 		CB141A6426706A2D000F0957 /* ExchangeRateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeRateVC.h; sourceTree = "<group>"; };
 		CB141A6526706A2D000F0957 /* ExchangeRateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRateVC.m; sourceTree = "<group>"; };
+		CB141A672670BCA8000F0957 /* ExchangeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeTableViewCell.h; sourceTree = "<group>"; };
+		CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeTableViewCell.m; sourceTree = "<group>"; };
 		CB365949266F159400946FCC /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		CB36594A266F159400946FCC /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		CB36594D266F163000946FCC /* UIViewController+CurrentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CurrentVC.h"; sourceTree = "<group>"; };
@@ -279,13 +282,13 @@
 				CB365956266F653700946FCC /* Model */,
 				CB365952266F572A00946FCC /* RSA */,
 				CB36594C266F161F00946FCC /* Category */,
-				CB365949266F159400946FCC /* LoginVC.h */,
-				CB36594A266F159400946FCC /* LoginVC.m */,
 				CB750F9D266DDA1800B12280 /* LaunchScreen.storyboard */,
 				CB750F9E266DDA1800B12280 /* Main.storyboard */,
 				CB750F74266DD6CD00B12280 /* Assets.xcassets */,
 				CB750F79266DD6CD00B12280 /* Info.plist */,
 				CB750F7A266DD6CD00B12280 /* main.m */,
+				CB365949266F159400946FCC /* LoginVC.h */,
+				CB36594A266F159400946FCC /* LoginVC.m */,
 				B4E16F32266F0B140011E12B /* WalletViewController.h */,
 				B4E16F33266F0B140011E12B /* WalletViewController.m */,
 				B4E16F5A267091D80011E12B /* TransferViewController.h */,
@@ -294,6 +297,8 @@
 				CB141A6526706A2D000F0957 /* ExchangeRateVC.m */,
 				B4E16F7F2670C9DD0011E12B /* SuccessViewController.h */,
 				B4E16F802670C9DD0011E12B /* SuccessViewController.m */,
+				CB141A672670BCA8000F0957 /* ExchangeTableViewCell.h */,
+				CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				B4E16FBB2670D8E90011E12B /* UIImage+Zirkfied.m in Sources */,
 				B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */,
 				CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */,
+				CB141A692670BCA8000F0957 /* ExchangeTableViewCell.m in Sources */,
 				CB36594B266F159400946FCC /* LoginVC.m in Sources */,
 				CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */,
 				CB750F7B266DD6CD00B12280 /* main.m in Sources */,

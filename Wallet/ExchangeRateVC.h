@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ExchangeRateVC : QMUICommonTableViewController
 
+
 @end
 
 NS_ASSUME_NONNULL_END

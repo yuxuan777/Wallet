@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"转账";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setupUI];
     _drmbLabel.text = [NSString stringWithFormat:@"当前可用DRMB：%.2f", [User sharedInstance].drmb];
@@ -69,7 +70,7 @@
     [exchangeBtn setTitle:@"兑换" forState:UIControlStateNormal];
     exchangeBtn.titleLabel.font = UIFontMake(16);
     
-    [exchangeBtn setTitleColor:[UIColor colorWithRed:43.0/255 green:181.0/255 blue:241.0/255 alpha:1] forState:UIControlStateNormal];
+    [exchangeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:exchangeBtn];
     [self.view addSubview:_drmbLabel];
     dynamicY += 40;
@@ -109,6 +110,7 @@
 
     dynamicY += 40;
     _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 50)];
+    [_submitButton setFillColor:[UIColor blueColor]];
     [_submitButton setTitle:@"转账" forState:UIControlStateNormal];
     [self.view addSubview:_submitButton];
     
