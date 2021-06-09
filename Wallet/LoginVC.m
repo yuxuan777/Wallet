@@ -9,6 +9,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "RSA.h"
 #import "User.h"
+#import "WalletViewController.h"
+#import "ExchangeRateVC.h"
 
 @interface LoginVC ()
 
@@ -92,6 +94,17 @@
     }
 
     [self requestLogin];
+    
+//    //跳转
+//    QMUITabBarViewController *tabBarViewController = [[QMUITabBarViewController alloc] init];
+//
+//    //首页
+//    WalletViewController *walletVC = [[WalletViewController alloc] init];
+//    walletVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"wallet" image:UIImageMake(@"wallet") tag:0];
+//    walletVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
+//    tabBarViewController.viewControllers = @[walletVC];
+//
+//    [UIApplication sharedApplication].keyWindow.rootViewController = tabBarViewController;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -99,6 +112,7 @@
 }
 
 - (void)requestLogin {
+    
     NSString *name = self.nameField.text;
     NSString *pwd = self.pwdField.text;
 
@@ -110,9 +124,7 @@
 
 //    NSString *url = @"https://sz.ilovn.com/api/login";
     NSString *url = @"http://sz.zy.hn:8123/api/login";
-//    NSString *url = @"http://sz.zy.hn:8123/api/register";
 
-//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://sz.ilovn.com/api"]];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -120,6 +132,8 @@
     
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.requestSerializer.timeoutInterval = 60;
+    
+    //这一行必须加
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
 
     [manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -133,27 +147,15 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"登录请求失败");
     }];
-    
-//    [manager GET:@"http://sz.zy.hn:8123/api/xx123" parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSDictionary *dict = responseObject;
-//        if ([dict[@"status"] isEqualToString:@"ok"]) {
-//
-//            [self loginSuccess:dict];
-//        }
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"登录请求失败");
-//    }];
 }
 
 - (NSString *)rsa:(NSString *)pwdText {
     NSString *pubkey = @"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAvlVsH1HRrqgVeInz28Dm2vp2a4XHeDLFeCJeDQ48BjXV/VDaTKGlpdznhzX0zijb7xmniKJ56nBYrFCVUUH7IHCpRZNCIAqxqnuTz3ddKA3wT3QSGqgQA27VLF4rVYiBcpjYiXDXrqgNvR8L+/hw/WGpKpuf0ZlwZWp54bhAwwIDAQAB-----END PUBLIC KEY-----";
     
-    NSString *privkey = @"-----BEGIN RSA PRIVATE KEY-----MIICXQIBAAKBgQDAvlVsH1HRrqgVeInz28Dm2vp2a4XHeDLFeCJeDQ48BjXV/VDaTKGlpdznhzX0zijb7xmniKJ56nBYrFCVUUH7IHCpRZNCIAqxqnuTz3ddKA3wT3QSGqgQA27VLF4rVYiBcpjYiXDXrqgNvR8L+/hw/WGpKpuf0ZlwZWp54bhAwwIDAQABAoGALJFWS0QKtUN/lkdjDsI3nqnv1EYUjwUaKFMZD0pRikudUzfZ5EBn+Feb9uVq8ophJEnrUrPjbfFpvPdLQtuhN7uI9grYNTYyORcMQ/7gSNiIgKh3WrsxHkxZWIj4PodtxZlDvN2KXvRPzfn+xIy+Ly0pgEblmSYK6bQb7JYz8xECQQDkwC+vzEohbmdLsFZBLN10E4tPVg1JuM2P4jrJAU+alUZ8SqQnfnFuy2zp26Oy9zqOdsI5RbSas9PynRtgPmKfAkEA17QY5DmjltP7jw1GfW1FEdkPmw/O6uKZKArhxgow+qHsOOBC46HYGSnb9HZ7uHzWsYh1NfVBRk1w8rC03J9zXQJBAM23sKsOs9Qg77B34vo2GOpc8TnmD4kvM16ke21tSmOgv4Tjs4D5C5YyR76AklVOVVDtqHnNIEDIXGGhvI7vS80CQQDK/uZeAhB+JUkcuzWXXHof7dLN7vaf/lh8YqFPKtAlTrVsYUER0IH6THZ/ffG5EWNK+Ey2VvTzIHYnLz1GU5jRAkBSm1yhDud2UFrtB4E2jANx4BSGEseBN5DQwauDBQ85bWjsgdLynb++4LoZngOyqaXwyapwH/K8F1R8ghTRAuTt-----END RSA PRIVATE KEY-----";
+//    NSString *privkey = @"-----BEGIN RSA PRIVATE KEY-----MIICXQIBAAKBgQDAvlVsH1HRrqgVeInz28Dm2vp2a4XHeDLFeCJeDQ48BjXV/VDaTKGlpdznhzX0zijb7xmniKJ56nBYrFCVUUH7IHCpRZNCIAqxqnuTz3ddKA3wT3QSGqgQA27VLF4rVYiBcpjYiXDXrqgNvR8L+/hw/WGpKpuf0ZlwZWp54bhAwwIDAQABAoGALJFWS0QKtUN/lkdjDsI3nqnv1EYUjwUaKFMZD0pRikudUzfZ5EBn+Feb9uVq8ophJEnrUrPjbfFpvPdLQtuhN7uI9grYNTYyORcMQ/7gSNiIgKh3WrsxHkxZWIj4PodtxZlDvN2KXvRPzfn+xIy+Ly0pgEblmSYK6bQb7JYz8xECQQDkwC+vzEohbmdLsFZBLN10E4tPVg1JuM2P4jrJAU+alUZ8SqQnfnFuy2zp26Oy9zqOdsI5RbSas9PynRtgPmKfAkEA17QY5DmjltP7jw1GfW1FEdkPmw/O6uKZKArhxgow+qHsOOBC46HYGSnb9HZ7uHzWsYh1NfVBRk1w8rC03J9zXQJBAM23sKsOs9Qg77B34vo2GOpc8TnmD4kvM16ke21tSmOgv4Tjs4D5C5YyR76AklVOVVDtqHnNIEDIXGGhvI7vS80CQQDK/uZeAhB+JUkcuzWXXHof7dLN7vaf/lh8YqFPKtAlTrVsYUER0IH6THZ/ffG5EWNK+Ey2VvTzIHYnLz1GU5jRAkBSm1yhDud2UFrtB4E2jANx4BSGEseBN5DQwauDBQ85bWjsgdLynb++4LoZngOyqaXwyapwH/K8F1R8ghTRAuTt-----END RSA PRIVATE KEY-----";
 
     NSString *encrypted = [RSA encryptString:pwdText publicKey:pubkey];
 //    NSLog(@"encrypted: %@", encrypted);
-//    NSString *decrypted = [RSA decryptString:@"WFi5NJ6K+Vg26mnddg1BKQRTB0Jkej9Fp5MQeHmBacMQwpFic0RZSkaRoantSG62coM6l6yXkbcjJd3D99TO7jTKUv5LCquvxLnj0ZwpNxyYr3tSlHK41wrLsMGq8ZgvWdGHpXpFY7/+o0r9833uDx1h/rzBD9mn6sMvX8PgPJU=" privateKey:privkey];
-//    NSLog(@"decrypted: %@", decrypted);
 
     return encrypted;
 }
@@ -167,7 +169,26 @@
     user.token = dataDic[@"token"];
     
     //跳转
+    QMUITabBarViewController *tabBarViewController = [[QMUITabBarViewController alloc] init];
     
+    //首页
+    WalletViewController *walletVC = [[WalletViewController alloc] init];
+    walletVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Wallet" image:UIImageMake(@"wallet") tag:0];
+    walletVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
+    QMUINavigationController *nav1 = [[QMUINavigationController alloc] initWithRootViewController:walletVC];
+    
+    //汇率
+    ExchangeRateVC *exchangeVC = [[ExchangeRateVC alloc] init];
+    exchangeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Rate" image:UIImageMake(@"wallet") tag:1];
+    exchangeVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
+    QMUINavigationController *nav2 = [[QMUINavigationController alloc] initWithRootViewController:exchangeVC];
+    
+    tabBarViewController.viewControllers = @[nav1, nav2];
+    [UIApplication sharedApplication].keyWindow.rootViewController = tabBarViewController;
+    
+//    [self presentViewController:tabBarViewController animated:NO completion:^{
+//
+//    }];
 }
 
 @end
