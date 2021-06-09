@@ -12,6 +12,7 @@
 		CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594E266F163000946FCC /* UIViewController+CurrentVC.m */; };
 		CB365955266F572A00946FCC /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB365953266F572A00946FCC /* RSA.m */; };
 		CB365959266F654700946FCC /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = CB365958266F654700946FCC /* User.m */; };
+		B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F33266F0B140011E12B /* WalletViewController.m */; };
 		CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB750F69266DD6CB00B12280 /* AppDelegate.m */; };
 		CB750F70266DD6CB00B12280 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB750F6F266DD6CB00B12280 /* ViewController.m */; };
 		CB750F75266DD6CD00B12280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB750F74266DD6CD00B12280 /* Assets.xcassets */; };
@@ -49,6 +50,8 @@
 		CB365954266F572A00946FCC /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };
 		CB365957266F654700946FCC /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		CB365958266F654700946FCC /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B4E16F32266F0B140011E12B /* WalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
+		B4E16F33266F0B140011E12B /* WalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		CB750F65266DD6CB00B12280 /* Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB750F68266DD6CB00B12280 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CB750F69266DD6CB00B12280 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				CB750F74266DD6CD00B12280 /* Assets.xcassets */,
 				CB750F79266DD6CD00B12280 /* Info.plist */,
 				CB750F7A266DD6CD00B12280 /* main.m */,
+				B4E16F32266F0B140011E12B /* WalletViewController.h */,
+				B4E16F33266F0B140011E12B /* WalletViewController.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				CB365959266F654700946FCC /* User.m in Sources */,
 				CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */,
 				CB750F70266DD6CB00B12280 /* ViewController.m in Sources */,
+				B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */,
 				CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */,
 				CB36594B266F159400946FCC /* LoginVC.m in Sources */,
 				CB750F7B266DD6CD00B12280 /* main.m in Sources */,
