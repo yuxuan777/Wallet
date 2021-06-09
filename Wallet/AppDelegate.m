@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import "LoginVC.h"
 #import <QMUIKit/QMUIKit.h>
-
+#import "WalletViewController.h"
+#import "TransferViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -25,10 +26,11 @@
 
 //    ViewController *vc = [[ViewController alloc] init];
     
-    LoginVC *vc = [[LoginVC alloc] init];
-    QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
+    TransferViewController *vc = [[TransferViewController alloc] init];
+    vc.availableDRMB = @"111";
+    vc.address = @"xxxxxadwadaw";
     
-    self.window.rootViewController = nav;
+    self.window.rootViewController = vc;
 
     [self.window makeKeyAndVisible];
     
