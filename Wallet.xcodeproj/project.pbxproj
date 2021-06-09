@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7575CE0DFFF35E84E13C4B86 /* libPods-Wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A10059DA49AAF78F529A5B /* libPods-Wallet.a */; };
 		B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F33266F0B140011E12B /* WalletViewController.m */; };
+		B4E16F5C267091D80011E12B /* TransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F5B267091D80011E12B /* TransferViewController.m */; };
 		CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A6526706A2D000F0957 /* ExchangeRateVC.m */; };
 		CB36594B266F159400946FCC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594A266F159400946FCC /* LoginVC.m */; };
 		CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594E266F163000946FCC /* UIViewController+CurrentVC.m */; };
@@ -45,6 +46,8 @@
 		3CF5DC89992007FCD7C17581 /* Pods-Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wallet.release.xcconfig"; path = "Target Support Files/Pods-Wallet/Pods-Wallet.release.xcconfig"; sourceTree = "<group>"; };
 		B4E16F32266F0B140011E12B /* WalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		B4E16F33266F0B140011E12B /* WalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
+		B4E16F5A267091D80011E12B /* TransferViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferViewController.h; sourceTree = "<group>"; };
+		B4E16F5B267091D80011E12B /* TransferViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferViewController.m; sourceTree = "<group>"; };
 		CB141A6426706A2D000F0957 /* ExchangeRateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeRateVC.h; sourceTree = "<group>"; };
 		CB141A6526706A2D000F0957 /* ExchangeRateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRateVC.m; sourceTree = "<group>"; };
 		CB365949266F159400946FCC /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				CB750F7A266DD6CD00B12280 /* main.m */,
 				B4E16F32266F0B140011E12B /* WalletViewController.h */,
 				B4E16F33266F0B140011E12B /* WalletViewController.m */,
+				B4E16F5A267091D80011E12B /* TransferViewController.h */,
+				B4E16F5B267091D80011E12B /* TransferViewController.m */,
 				CB141A6426706A2D000F0957 /* ExchangeRateVC.h */,
 				CB141A6526706A2D000F0957 /* ExchangeRateVC.m */,
 			);
@@ -392,6 +397,7 @@
 				CB36594B266F159400946FCC /* LoginVC.m in Sources */,
 				CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */,
 				CB750F7B266DD6CD00B12280 /* main.m in Sources */,
+				B4E16F5C267091D80011E12B /* TransferViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
