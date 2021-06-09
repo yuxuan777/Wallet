@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182C1A2A267119F00086C559 /* ExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C1A29267119F00086C559 /* ExchangeViewController.m */; };
 		7575CE0DFFF35E84E13C4B86 /* libPods-Wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A10059DA49AAF78F529A5B /* libPods-Wallet.a */; };
 		B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F33266F0B140011E12B /* WalletViewController.m */; };
 		B4E16F5C267091D80011E12B /* TransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F5B267091D80011E12B /* TransferViewController.m */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		182C1A28267119F00086C559 /* ExchangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeViewController.h; sourceTree = "<group>"; };
+		182C1A29267119F00086C559 /* ExchangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeViewController.m; sourceTree = "<group>"; };
 		3CF5DC89992007FCD7C17581 /* Pods-Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wallet.release.xcconfig"; path = "Target Support Files/Pods-Wallet/Pods-Wallet.release.xcconfig"; sourceTree = "<group>"; };
 		B4E16F32266F0B140011E12B /* WalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		B4E16F33266F0B140011E12B /* WalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				CB141A6526706A2D000F0957 /* ExchangeRateVC.m */,
 				CB141A672670BCA8000F0957 /* ExchangeTableViewCell.h */,
 				CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */,
+				182C1A28267119F00086C559 /* ExchangeViewController.h */,
+				182C1A29267119F00086C559 /* ExchangeViewController.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB365955266F572A00946FCC /* RSA.m in Sources */,
+				182C1A2A267119F00086C559 /* ExchangeViewController.m in Sources */,
 				CB365959266F654700946FCC /* User.m in Sources */,
 				CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */,
 				CB750F70266DD6CB00B12280 /* ViewController.m in Sources */,

@@ -11,6 +11,7 @@
 #import <QMUIKit/QMUIKit.h>
 #import "WalletViewController.h"
 #import "ExchangeRateVC.h"
+#import "ExchangeViewController.h"
 
 @interface AppDelegate ()
 
