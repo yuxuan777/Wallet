@@ -29,15 +29,10 @@
     [self setupUI];
 }
 
-//- (void)didInitialize {
-//    [super didInitialize];
-//}
-
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
-    [self setTitle:@"登录"];
+    self.title = @"登录";
     
     CGFloat textW = SCREEN_WIDTH - 80;
     CGFloat textH = 44;
@@ -49,7 +44,7 @@
 //    nameField.layer.cornerRadius = 2;
 //    nameField.layer.borderColor = UIColorSeparator.CGColor;
 //    nameField.layer.borderWidth = PixelOne;
-    nameField.clearButtonMode = UITextFieldViewModeAlways;
+    nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     nameField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     nameField.text = @"cyx";
     [self.view addSubview:nameField];
@@ -68,7 +63,7 @@
 //    pwdField.layer.cornerRadius = 2;
 //    pwdField.layer.borderColor = UIColorSeparator.CGColor;
 //    pwdField.layer.borderWidth = PixelOne;
-    pwdField.clearButtonMode = UITextFieldViewModeAlways;
+    pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwdField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     [self.view addSubview:pwdField];
     self.pwdField = pwdField;
@@ -113,6 +108,9 @@
 
 - (void)requestLogin {
     
+//    [self showEmptyViewWithLoading];
+    [self showEmptyViewWithLoading:YES image:nil text:@"加载中" detailText:nil buttonTitle: nil buttonAction:nil];
+    
     NSString *name = self.nameField.text;
     NSString *pwd = self.pwdField.text;
 
@@ -143,9 +141,13 @@
 
             [self loginSuccess:dict];
         }
+        
+        [self hideEmptyView];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"登录请求失败");
+        
+        [self hideEmptyView];
     }];
 }
 
