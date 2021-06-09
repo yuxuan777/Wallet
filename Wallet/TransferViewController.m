@@ -7,23 +7,36 @@
 
 #import "TransferViewController.h"
 #import "SGQRCode.h"
-#import "QMUIKit.h"
+#import "SuccessViewController.h"
+#import "User.h"
+#import <AFNetworking/AFNetworking.h>
+#import "ZFScanViewController.h"
 @interface TransferViewController ()
 @property (nonatomic, strong) QMUITextField *addressTF;
 @property (nonatomic, strong) QMUITextField *moneyTF;
+@property (nonatomic, strong) QMUITextField *remarkTF;
 @property (nonatomic, strong) QMUIFillButton *submitButton;
 @property (nonatomic, strong) QMUIButton *smButton;
+@property (nonatomic, strong) QMUILabel *drmbLabel;
 @end
 
 @implementation TransferViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setupUI];
+    _drmbLabel.text = [NSString stringWithFormat:@"当前可用DRMB：%.2f", [User sharedInstance].drmb];
+    if (self.toAddress) {
+        _addressTF.text = self.toAddress;
+    }
+
+    
+
 }
 
 - (void)setupUI {
-    CGFloat dynamicY = 40;
+    CGFloat dynamicY = 10;
     self.view.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
     UILabel *label1 = [[UILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
     label1.text = @"收款地址";
@@ -37,7 +50,6 @@
     _addressTF.placeholder = @"钱包地址";
     _addressTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     _addressTF.backgroundColor = [UIColor whiteColor];
-    _addressTF.placeholder = _address;
     [self.view addSubview:_addressTF];
     
     _smButton = [[QMUIButton alloc] init];
@@ -49,36 +61,54 @@
     UILabel *label2 = [[UILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
     label2.text = @"金额";
     label2.frame = CGRectMake(10, dynamicY, 50, 30);
-    UILabel *label3 = [[UILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
+    _drmbLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
     
-    label3.text = [NSString stringWithFormat:@"当前可用DRMB：%@", self.availableDRMB];
-    label3.frame = CGRectMake(SCREEN_WIDTH - 240, dynamicY, 180, 30);
-    label3.textAlignment = NSTextAlignmentRight;
+    _drmbLabel.frame = CGRectMake(70, dynamicY, SCREEN_WIDTH - 130, 30);
+    _drmbLabel.textAlignment = NSTextAlignmentRight;
     QMUIButton *exchangeBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60, dynamicY, 50, 30)];
     [exchangeBtn setTitle:@"兑换" forState:UIControlStateNormal];
     exchangeBtn.titleLabel.font = UIFontMake(16);
-    [exchangeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    
+    [exchangeBtn setTitleColor:[UIColor colorWithRed:43.0/255 green:181.0/255 blue:241.0/255 alpha:1] forState:UIControlStateNormal];
     [self.view addSubview:exchangeBtn];
-    [self.view addSubview:label3];
+    [self.view addSubview:_drmbLabel];
     dynamicY += 40;
     [self.view addSubview:label2];
     _moneyTF = [[QMUITextField alloc] initWithFrame:CGRectMake(10, dynamicY, SCREEN_WIDTH - 20, 100)];
-    dynamicY += 100;
+   
     _moneyTF.font = UIFontMake(36);
     _moneyTF.layer.cornerRadius = 4;
     _moneyTF.placeholder = @"0";
     _moneyTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     _moneyTF.backgroundColor = [UIColor whiteColor];
+    _moneyTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_moneyTF];
     
+    
+    
+    dynamicY += 100;
+    _remarkTF = [[QMUITextField alloc] initWithFrame:CGRectMake(10, dynamicY, SCREEN_WIDTH - 20, 50)];
+    _remarkTF.font = UIFontMake(20);
+    _remarkTF.layer.cornerRadius = 4;
+    _remarkTF.placeholder = @"备注";
+    _remarkTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    _remarkTF.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_remarkTF];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(20, dynamicY, SCREEN_WIDTH - 40, 1)];
+    lineView.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
+    [self.view addSubview:lineView];
+    
+    dynamicY += 80;
     QMUILabel *label4 = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
-    label4.text = @"交易手续费：0.12%";
-    label4.frame = CGRectMake(0, dynamicY + 50, SCREEN_WIDTH, 30);
+    label4.text = @"交易手续费：0%";
+    label4.textColor = [UIColor redColor];
+    label4.frame = CGRectMake(0, dynamicY, SCREEN_WIDTH, 30);
     label4.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label4];
-//    _addressTF = [QMUITextField alloc] initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
 
-    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, SCREEN_HEIGHT - 70, SCREEN_WIDTH-60, 50)];
+    dynamicY += 40;
+    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 50)];
     [_submitButton setTitle:@"转账" forState:UIControlStateNormal];
     [self.view addSubview:_submitButton];
     
@@ -89,12 +119,76 @@
 }
 
 - (void)scan {
-    [[SGQRCodeManager QRCodeManager]  scanWithController:self resultBlock:^(SGQRCodeManager *manager, NSString *result) {
-        NSLog(@"result");
-    }];
+
+    ZFScanViewController * vc = [[ZFScanViewController alloc] init];
+       vc.returnScanBarCodeValue = ^(NSString * barCodeString){
+           //扫描完成后，在此进行后续操作
+           self.addressTF.text = barCodeString;
+       };
+
+       [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)submit {
+    NSString *money = _moneyTF.text;
+    if (money.length <= 0) {
+        return;
+    }
+    NSString *address = _addressTF.text;
+    NSString *remark = _remarkTF.text;
+    if (address.length <= 0) {
+        [QMUITips showError:@"请输入钱包地址" inView:self.view hideAfterDelay:2];
+        return;
+    }
+    if (money.floatValue > [User sharedInstance].drmb) {
+        [QMUITips showError:@"余额不足" inView:self.view hideAfterDelay:2];
+        return;;
+    }
+    User *user = [User sharedInstance];
+    if (user.token.length <= 0) {
+        return;
+    }
+    
+    NSString *url = @"http://sz.zy.hn:8123/api/transfer";
+    
+    NSDictionary *params = @{@"token": user.token,
+                             @"amount": [NSNumber numberWithLong:[money longLongValue]],
+                             @"address": address,
+                             @"mark": remark ? remark : @""
+    };
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.requestSerializer.timeoutInterval = 60;
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
+
+    
+    [QMUITips showLoadingInView:self.view];
+    [manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [QMUITips hideAllTips];
+        //{"status":"ok","msg":"登录成功","data":{"name":"cyx","token":"j3jtqmd2rCPJGgL0yq6w2rKs0lIpfzGl-afgHIJuAQE="}}
+        NSDictionary *dict = responseObject;
+        NSString *info = dict[@"msg"];
+        if ([dict[@"status"] isEqualToString:@"ok"]) {
+            
+            SuccessViewController *sucVC = [[SuccessViewController alloc] init];
+            sucVC.info = info;
+            [self presentViewController:sucVC animated:YES completion:^{
+                [self.navigationController popViewControllerAnimated:false];
+            }];
+
+        } else {
+            [QMUITips showError:info inView:self.view hideAfterDelay:2];
+        }
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [QMUITips hideAllTips];
+        NSLog(@"登录请求失败");
+    }];
     
 }
 

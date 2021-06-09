@@ -8,6 +8,9 @@
 #import "WalletViewController.h"
 #import "SGQRCode.h"
 #import <AFNetworking/AFNetworking.h>
+#import "User.h"
+#import "TransferViewController.h"
+#import "ZFScanViewController.h"
 @interface WalletViewController ()
 
 @property (nonatomic, strong) QMUILabel *addressLabel;
@@ -18,11 +21,15 @@
 @property (nonatomic, strong) QMUIButton *usdButton;
 @property (nonatomic, strong) QMUIButton *eurButton;
 @property (nonatomic, strong) QMUIButton *smButton;
+@property (nonatomic, strong) SGQRCodeManager *cameraManager;
+
 // 币种
 @property (nonatomic, strong) QMUILabel *drmbLabel;
 @property (nonatomic, strong) QMUILabel *rmbLabel;
 @property (nonatomic, strong) QMUILabel *usdLabel;
 @property (nonatomic, strong) QMUILabel *eurLabel;
+
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 
 @end
@@ -31,42 +38,104 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.title = @"钱包";
     [self setupUI];
-//    [self getData];
-    // Do any additional setup after loading the view.
+    
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"转账" style:UIBarButtonItemStylePlain target:self action:@selector(transfer)];
+    
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [self getData];
+}
+- (void)transfer {
+    
+    [self.navigationController pushViewController:[[TransferViewController alloc] init] animated:YES];
 }
 - (void)getData {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-
-//    [manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
-    // 获取信息
-    NSDictionary *params = @{@"token":@"sEHocA8weOZWvalhdHfEp2NBBJW9Ww7CUiSoYT-QTmM="};
+    User *user = [User sharedInstance];
+    if (user.token.length <= 0) {
+        return;
+    }
     
-  
-    [manager POST:@"http://sz.zy.hn:8123/api/info" parameters:params headers:@{} progress:Nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSString *url = @"http://sz.zy.hn:8123/api/info";
+    
+    NSDictionary *params = @{@"token": user.token
+    };
+    if (_manager == nil) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        
+        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        manager.requestSerializer.timeoutInterval = 60;
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
+        _manager = manager;
+    }
+    
+    [_manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //{"status":"ok","msg":"登录成功","data":{"name":"cyx","token":"j3jtqmd2rCPJGgL0yq6w2rKs0lIpfzGl-afgHIJuAQE="}}
+        NSDictionary *dict = responseObject;
+        if ([dict[@"status"] isEqualToString:@"ok"]) {
+            [self setupInfoData: dict];
+        }
 
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"登录请求失败");
+    }];
+
+
+    // 获取汇率
+
+}
+
+- (void)setupInfoData: (NSDictionary *)dict {
+    NSDictionary *data = dict[@"data"];
+    NSNumber *drmb = data[@"drmb"];
+    NSNumber *eur = data[@"eur"];
+    NSNumber *rmb = data[@"rmb"];
+    NSNumber *usd = data[@"usd"];
+    
+    _drmbLabel.text = [drmb stringValue];
+    _eurLabel.text = [eur stringValue];
+    _rmbLabel.text = [rmb stringValue];
+    _usdLabel.text = [usd stringValue];
+    _addressLabel.text = data[@"wallet"];
+    [User sharedInstance].wallet = data[@"wallet"];
+    [User sharedInstance].drmb = [drmb floatValue];
+    NSDictionary *param = @{@"token": [User sharedInstance].token};
+    NSString *url = @"http://sz.zy.hn:8123/api/er";
+    [_manager POST:url parameters:
+    param headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([dict[@"status"] isEqualToString:@"ok"]) {
+            NSDictionary *rateData = responseObject[@"data"];
+            NSNumber *rateEur = rateData[@"eur"];
+            NSNumber *rateUsd = rateData[@"usd"];
+            CGFloat total = rmb.qmui_CGFloatValue + drmb.qmui_CGFloatValue + eur.qmui_CGFloatValue/rateEur.qmui_CGFloatValue + usd.qmui_CGFloatValue/rateUsd.qmui_CGFloatValue;
+            _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", total];
+        }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
         }];
-
-    // 获取汇率
-//    [manager GET:@"http://sz.zy.hn:8123/api/er" parameters:@{@"token": @"uDOq7Z7Aq6aQd6rL6YF5-yWw9ecQr6a2pkw_zVJL3aM="} headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//
-//        }];
+    /*
+     {
+         drmb = 0;
+         eur = 0;
+         name = cyx;
+         rmb = 5000;
+         usd = 0;
+         wallet = 1GMhPo7kzSmth1M4VU8Xiq4fGjCWU3h5rq;
+     };
+     */
 }
-
 - (void)setupUI {
-    CGFloat dynamicY = 60;
+    CGFloat dynamicY = 10;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 , dynamicY, SCREEN_WIDTH - 20, SCREEN_HEIGHT * 0.15)];
-    dynamicY += SCREEN_HEIGHT * 0.15;
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 , dynamicY, SCREEN_WIDTH - 20, 180)];
+    dynamicY += 180;
     bgView.backgroundColor = [UIColor blueColor];
     bgView.layer.cornerRadius = 8;
     bgView.layer.masksToBounds = YES;
@@ -86,6 +155,7 @@
     label2.text = @"资产折合(RMB)：";
     _addressLabel.textColor = [UIColor whiteColor];
     _addressLabel.font = [UIFont systemFontOfSize:14];
+    _addressLabel.numberOfLines = 0;
     [_addressButton setImage:[UIImage imageNamed:@"ewm"] forState:UIControlStateNormal];
     [_smButton setImage:[UIImage imageNamed:@"sm"] forState:UIControlStateNormal];
     _totalLabel.textColor = [UIColor whiteColor];
@@ -97,13 +167,13 @@
     label1.frame = CGRectMake(20, 10, 60, 18);
     _addressButton.frame = CGRectMake(80, 10, 20, 20);
     _smButton.frame = CGRectMake(bgView.qmui_width - 60, 20, 40, 40);
-    _addressLabel.frame = CGRectMake(20, 40, 100, 18);
+    _addressLabel.frame = CGRectMake(20, 40, bgView.qmui_width - 90, 50);
     label2.frame = CGRectMake(20, bgView.frame.size.height - 40, 120, 30);
     _totalLabel.textAlignment = NSTextAlignmentRight;
     _totalLabel.frame = CGRectMake(140, bgView.frame.size.height - 40, bgView.frame.size.width - 160, 30);
     
-    _addressLabel.text = @"xsadsadasdas";
-    _totalLabel.text =  @"saeaweawawe";
+    _addressLabel.text = @"";
+    _totalLabel.text =  @"";
     [bgView addSubview:label1];
     [bgView addSubview:_addressLabel];
     [bgView addSubview:_addressButton];
@@ -124,22 +194,27 @@
     [self.view addSubview:coinLabel];
     [self.view addSubview:lineView];
     
+    
+    _drmbLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
     UIView *drmbView = [self createCoinUI:_drmbLabel imgName:@"b1" labelName:@"DRMB"];
     [self.view addSubview:drmbView];
     drmbView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
     dynamicY += 60;
     
-    UIView *rmbView = [self createCoinUI:_drmbLabel imgName:@"b2" labelName:@"RMB"];
+    _rmbLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
+    UIView *rmbView = [self createCoinUI:_rmbLabel imgName:@"b2" labelName:@"RMB"];
     [self.view addSubview:rmbView];
     rmbView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
     dynamicY += 60;
     
-    UIView *usdView = [self createCoinUI:_drmbLabel imgName:@"b3" labelName:@"USD"];
+    _usdLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
+    UIView *usdView = [self createCoinUI:_usdLabel imgName:@"b3" labelName:@"USD"];
     [self.view addSubview:usdView];
     usdView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
     dynamicY += 60;
     
-    UIView *eurView = [self createCoinUI:_drmbLabel imgName:@"b4" labelName:@"EUR"];
+    _eurLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
+    UIView *eurView = [self createCoinUI:_eurLabel imgName:@"b4" labelName:@"EUR"];
     [self.view addSubview:eurView];
     eurView.frame = CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 60);
     dynamicY += 60;
@@ -152,7 +227,7 @@
 
 
 - (void)qrClick {
-    UIImage *img = [SGQRCodeManager generateQRCodeWithData:@"xxxxxx" size:SCREEN_WIDTH - 80];
+    UIImage *img = [SGQRCodeManager generateQRCodeWithData:[User sharedInstance].wallet size:SCREEN_WIDTH - 80];
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.contentView = imgView;
@@ -160,18 +235,25 @@
 }
 
 - (void)scanClick {
-    [[SGQRCodeManager QRCodeManager]  scanWithController:self resultBlock:^(SGQRCodeManager *manager, NSString *result) {
-        NSLog(@"result");
-    }];
+
+    ZFScanViewController * vc = [[ZFScanViewController alloc] init];
+       vc.returnScanBarCodeValue = ^(NSString * barCodeString){
+           //扫描完成后，在此进行后续操作
+           TransferViewController *vc = [[TransferViewController alloc] init];
+           vc.toAddress = barCodeString;
+           [self.navigationController pushViewController:vc animated:YES];
+       };
+
+       [self presentViewController:vc animated:YES completion:nil];
 }
 
 
-- (UIView *)createCoinUI: (QMUILabel *)label imgName: (NSString *)imgName labelName: (NSString *)labelName {
+- (UIView *)createCoinUI:  (QMUILabel* )label imgName: (NSString *)imgName labelName: (NSString *)labelName {
     UIView *contain = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 60)];
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     QMUILabel *textLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
     textLabel.text = labelName;
-    label = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
+
     [contain addSubview:icon];
     [contain addSubview:textLabel];
     [contain addSubview:label];

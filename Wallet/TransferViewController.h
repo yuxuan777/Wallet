@@ -6,12 +6,11 @@
 //
 
 #import "ViewController.h"
-
+#import "QMUIKit.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TransferViewController : ViewController
-@property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) NSString *availableDRMB;
+@interface TransferViewController : UIViewController
+@property (nonatomic, strong) NSString *toAddress;
 @end
 
 NS_ASSUME_NONNULL_END

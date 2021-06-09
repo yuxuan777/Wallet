@@ -27,6 +27,7 @@
     LoginVC *vc = [[LoginVC alloc] init];
     QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
     
+    
     self.window.rootViewController = nav;
     
 //    //跳转
