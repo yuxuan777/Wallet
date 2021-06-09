@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QMUIKit/QMUIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ExchangeRateVC : UIViewController
+@interface ExchangeRateVC : QMUICommonTableViewController
 
 @end
 

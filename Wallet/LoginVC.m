@@ -178,7 +178,7 @@
     QMUINavigationController *nav1 = [[QMUINavigationController alloc] initWithRootViewController:walletVC];
     
     //汇率
-    ExchangeRateVC *exchangeVC = [[ExchangeRateVC alloc] init];
+    ExchangeRateVC *exchangeVC = [[ExchangeRateVC alloc] initWithStyle:UITableViewStyleGrouped];
     exchangeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Rate" image:UIImageMake(@"wallet") tag:1];
     exchangeVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
     QMUINavigationController *nav2 = [[QMUINavigationController alloc] initWithRootViewController:exchangeVC];
@@ -186,9 +186,7 @@
     tabBarViewController.viewControllers = @[nav1, nav2];
     [UIApplication sharedApplication].keyWindow.rootViewController = tabBarViewController;
     
-//    [self presentViewController:tabBarViewController animated:NO completion:^{
-//
-//    }];
+    
 }
 
 @end
