@@ -17,6 +17,11 @@
 @property (nonatomic, strong) QMUIButton *usdButton;
 @property (nonatomic, strong) QMUIButton *eurButton;
 @property (nonatomic, strong) QMUIButton *smButton;
+// 币种
+@property (nonatomic, strong) QMUILabel *drmbLabel;
+@property (nonatomic, strong) QMUILabel *rmbLabel;
+@property (nonatomic, strong) QMUILabel *usdLabel;
+@property (nonatomic, strong) QMUILabel *eurLabel;
 
 
 @end
@@ -32,7 +37,7 @@
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 * ScreenNativeScale, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT * 0.15)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 , 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT * 0.15)];
     bgView.backgroundColor = [UIColor blueColor];
     bgView.layer.cornerRadius = 8;
     bgView.layer.masksToBounds = YES;
@@ -85,6 +90,8 @@
     
 }
 
+
+
 - (void)qrClick {
     [[SGQRCodeManager QRCodeManager]  scanWithController:self resultBlock:^(SGQRCodeManager *manager, NSString *result) {
         NSLog(@"result");
@@ -93,6 +100,16 @@
 
 - (void)scanClick {
     
+}
+
+
+- (UIView *)createCoinUI: (QMUILabel *)label imgName: (NSString *)imgName labelName: (NSString *)labelName {
+    UIView *contain = [[UIView alloc] init];
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
+    QMUILabel *textLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
+    label = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:16] textColor:[UIColor blackColor]];
+    [contain addSubview:label];
+    return contain;
 }
 
 /*
