@@ -22,9 +22,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-
-//    ViewController *vc = [[ViewController alloc] init];
-    
     LoginVC *vc = [[LoginVC alloc] init];
     QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
     
