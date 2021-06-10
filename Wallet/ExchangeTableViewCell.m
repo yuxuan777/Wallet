@@ -17,12 +17,14 @@
 @implementation ExchangeTableViewCell
 
 - (void)didInitializeWithStyle:(UITableViewCellStyle)style {
-    self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 40, 40)];
+    [super didInitializeWithStyle:style];
+    
+    self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 30, 30)];
 //    self.iconView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:self.iconView];
     
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 150, 40)];
-    self.label.font = [UIFont systemFontOfSize:17];
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, 150, 40)];
+    self.label.font = [UIFont systemFontOfSize:18];
     [self.contentView addSubview:self.label];
 }
 

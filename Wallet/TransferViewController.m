@@ -36,6 +36,14 @@
 
 }
 
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)navigationBarTintColor {
+    return [UIColor blackColor];
+}
+
 - (void)setupUI {
     CGFloat dynamicY = 10;
     self.view.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];

@@ -38,6 +38,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
 - (void)dismissVC {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

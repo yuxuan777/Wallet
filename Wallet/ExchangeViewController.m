@@ -42,6 +42,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
 - (void)expTextFieldChanged:(UITextField*)textField{
     NSString *string = textField.text;
     self.exgTF.text = @"1";

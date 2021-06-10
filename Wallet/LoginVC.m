@@ -12,6 +12,8 @@
 #import "WalletViewController.h"
 #import "ExchangeRateVC.h"
 
+#import "SuccessViewController.h"
+
 @interface LoginVC ()
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -28,6 +30,14 @@
     [super viewDidLoad];
     
     [self setupUI];
+}
+
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)navigationBarTintColor {
+    return [UIColor blackColor];
 }
 
 - (void)setupUI {
@@ -184,24 +194,31 @@
     
     //首页
     WalletViewController *walletVC = [[WalletViewController alloc] init];
+    
     UITabBarItem *tabBarItem1 = [[UITabBarItem alloc] initWithTitle:@"钱包" image:[UIImageMake(@"钱包") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
 //    tabBarItem1.imageInsets = UIEdgeInsetsMake(5, 0, 0, 0);
     tabBarItem1.selectedImage = [UIImageMake(@"钱包 (1)") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     walletVC.tabBarItem = tabBarItem1;
+//    walletVC.hidesBottomBarWhenPushed = YES;
     
     QMUINavigationController *nav1 = [[QMUINavigationController alloc] initWithRootViewController:walletVC];
+//    nav1.navigationItem.qmui_navigationBar.tintColor = [UIColor blackColor];
     
     //汇率
-    ExchangeRateVC *exchangeVC = [[ExchangeRateVC alloc] initWithStyle:UITableViewStyleGrouped];
+    ExchangeRateVC *exchangeVC = [[ExchangeRateVC alloc] initWithStyle:UITableViewStylePlain];
     UITabBarItem *tabBarItem2 = [[UITabBarItem alloc] initWithTitle:@"汇率" image:[UIImageMake(@"汇率 (1)") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:1];
     tabBarItem2.imageInsets = UIEdgeInsetsMake(5, 0, 0, 0);
     tabBarItem2.selectedImage = [UIImageMake(@"汇率") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     exchangeVC.tabBarItem = tabBarItem2;
+//    exchangeVC.hidesBottomBarWhenPushed = YES;
+    
+    
     QMUINavigationController *nav2 = [[QMUINavigationController alloc] initWithRootViewController:exchangeVC];
+//    nav2.navigationItem.qmui_navigationBar.tintColor = [UIColor blackColor];
+//    nav2.navigationItem.qmui_nextItem.qmui_navigationBar.tintColor = [UIColor blackColor];
     
     tabBarViewController.viewControllers = @[nav1, nav2];
     [UIApplication sharedApplication].keyWindow.rootViewController = tabBarViewController;
-    
     
 }
 
