@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - IQKeyboardManager (6.5.6)
   - MBProgressHUD (1.2.0)
   - QMUIKit (4.2.3):
     - QMUIKit/QMUIComponents (= 4.2.3)
@@ -343,6 +344,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0.1)
+  - IQKeyboardManager
   - MBProgressHUD (~> 1.2.0)
   - QMUIKit
   - Reachability
@@ -351,6 +353,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - IQKeyboardManager
     - QMUIKit
   trunk:
     - AFNetworking
@@ -361,12 +364,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   QMUIKit: c047f987b14be9f48df47cb934a2d21ccd7ef4b6
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SGQRCode: d92dd8bd2af665b7e0d76098c5b70e59d2a2609f
 
-PODFILE CHECKSUM: 6b99be82c8676d2c50801bf253ae6f0d065d182a
+PODFILE CHECKSUM: 57b66238ce2c0807d46e445fba269d1debd0b95e
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

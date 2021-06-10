@@ -14,5 +14,6 @@ target 'Wallet' do
     pod 'Reachability'
     pod 'SGQRCode', '~> 3.5.0'
     pod 'QMUIKit'
+    pod 'IQKeyboardManager'
 
 end
