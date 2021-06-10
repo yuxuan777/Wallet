@@ -136,7 +136,7 @@
     [self.view addSubview:label4];
 
     dynamicY += 40;
-    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 40)];
+    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(10, dynamicY, SCREEN_WIDTH-20, 40)];
     [_submitButton setFillColor:[UIColor blueColor]];
     [_submitButton setTitle:@"转账" forState:UIControlStateNormal];
     _submitButton.cornerRadius = 4;
@@ -195,7 +195,7 @@
            //扫描完成后，在此进行后续操作
            self.addressTF.text = barCodeString;
        };
-
+    vc.modalPresentationStyle = 0;
        [self presentViewController:vc animated:YES completion:nil];
 }
 

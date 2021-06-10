@@ -255,7 +255,7 @@
     bgView.backgroundColor = [UIColor whiteColor];
     
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(30, (SCREEN_HEIGHT - SCREEN_WIDTH)*0.5, SCREEN_WIDTH - 60, SCREEN_WIDTH - 30)];
-    contentView.backgroundColor = [UIColor blueColor];
+    contentView.backgroundColor = [UIColor qmui_colorWithHexString:@"#1296db"];
 //    UIImage *img = [SGQRCodeManager generateQRCodeWithData:[User sharedInstance].wallet size:SCREEN_WIDTH - 120];
     UIImage *img = [SGQRCodeManager generateQRCodeWithData:[User sharedInstance].wallet size:SCREEN_WIDTH - 120 logoImage:UIImageMake(@"AppIcon") ratio:0.25];
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
@@ -288,7 +288,7 @@
            vc.toAddress = barCodeString;
            [self.navigationController pushViewController:vc animated:YES];
        };
-
+        vc.modalPresentationStyle = 0;
        [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -306,7 +306,7 @@
     textLabel.frame = CGRectMake(50, 10, 70, 30);
     label.frame = CGRectMake(120, 10, SCREEN_WIDTH - 150, 30);
     label.textAlignment = NSTextAlignmentRight;
-    label.text = @"¥100";
+    label.text = @"-";
     return contain;
 }
 
