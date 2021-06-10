@@ -11,6 +11,7 @@
 #import <QMUIKit/QMUIKit.h>
 #import "WalletViewController.h"
 #import "ExchangeRateVC.h"
+#import "ExchangeViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,7 @@
     
     LoginVC *vc = [[LoginVC alloc] init];
     QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
+    
     
     self.window.rootViewController = nav;
     

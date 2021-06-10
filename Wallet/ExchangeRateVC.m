@@ -9,6 +9,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "User.h"
 #import "ExchangeTableViewCell.h"
+#import "ExchangeViewController.h"
 
 @interface ExchangeRateVC () <QMUITableViewDelegate, QMUITableViewDataSource>
 
@@ -34,9 +35,18 @@
 
 - (void)setupUI {
     self.title = @"汇率";
+
+    
+//    btn.frame = CGRectMake(0, 0, 100, 40);
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"兑换" style:UIBarButtonItemStylePlain target:self action:@selector(exchange)];
     
 }
-
+- (void)exchange {
+    ExchangeViewController *vc = [[ExchangeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 - (void)request {
     [self showEmptyViewWithLoading:YES image:nil text:@"加载中" detailText:nil buttonTitle: nil buttonAction:nil];
     

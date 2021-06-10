@@ -7,9 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182C1A2A267119F00086C559 /* ExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C1A29267119F00086C559 /* ExchangeViewController.m */; };
 		7575CE0DFFF35E84E13C4B86 /* libPods-Wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A10059DA49AAF78F529A5B /* libPods-Wallet.a */; };
 		B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F33266F0B140011E12B /* WalletViewController.m */; };
 		B4E16F5C267091D80011E12B /* TransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F5B267091D80011E12B /* TransferViewController.m */; };
+		B4E16F812670C9DD0011E12B /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16F802670C9DD0011E12B /* SuccessViewController.m */; };
+		B4E16FBB2670D8E90011E12B /* UIImage+Zirkfied.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16FA52670D8E80011E12B /* UIImage+Zirkfied.m */; };
+		B4E16FBC2670D8E90011E12B /* UIColor+Zirkfied.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16FA62670D8E80011E12B /* UIColor+Zirkfied.m */; };
+		B4E16FBD2670D8E90011E12B /* ZFConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16FAA2670D8E80011E12B /* ZFConst.m */; };
+		B4E16FBE2670D8E90011E12B /* ZFScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16FAC2670D8E80011E12B /* ZFScanViewController.m */; };
+		B4E16FBF2670D8E90011E12B /* ZFCodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16FB02670D8E80011E12B /* ZFCodeImageView.m */; };
+		B4E16FC02670D8E90011E12B /* ZFMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E16FB12670D8E80011E12B /* ZFMaskView.m */; };
+		B4E16FC12670D8E90011E12B /* QRCodeScanLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB32670D8E80011E12B /* QRCodeScanLine@2x.png */; };
+		B4E16FC22670D8E90011E12B /* Down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB42670D8E80011E12B /* Down@2x.png */; };
+		B4E16FC32670D8E90011E12B /* ScanQR3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB52670D8E80011E12B /* ScanQR3@2x.png */; };
+		B4E16FC42670D8E90011E12B /* ScanQR1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB62670D8E80011E12B /* ScanQR1@2x.png */; };
+		B4E16FC52670D8E90011E12B /* ScanQR4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB72670D8E80011E12B /* ScanQR4@2x.png */; };
+		B4E16FC62670D8E90011E12B /* Flashlight_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB82670D8E80011E12B /* Flashlight_N@2x.png */; };
+		B4E16FC72670D8E90011E12B /* ScanQR2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FB92670D8E80011E12B /* ScanQR2@2x.png */; };
+		B4E16FC82670D8E90011E12B /* Flashlight_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FBA2670D8E80011E12B /* Flashlight_H@2x.png */; };
 		CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A6526706A2D000F0957 /* ExchangeRateVC.m */; };
 		CB141A692670BCA8000F0957 /* ExchangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */; };
 		CB36594B266F159400946FCC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594A266F159400946FCC /* LoginVC.m */; };
@@ -44,11 +60,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		182C1A28267119F00086C559 /* ExchangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeViewController.h; sourceTree = "<group>"; };
+		182C1A29267119F00086C559 /* ExchangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeViewController.m; sourceTree = "<group>"; };
 		3CF5DC89992007FCD7C17581 /* Pods-Wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wallet.release.xcconfig"; path = "Target Support Files/Pods-Wallet/Pods-Wallet.release.xcconfig"; sourceTree = "<group>"; };
 		B4E16F32266F0B140011E12B /* WalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		B4E16F33266F0B140011E12B /* WalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
 		B4E16F5A267091D80011E12B /* TransferViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferViewController.h; sourceTree = "<group>"; };
 		B4E16F5B267091D80011E12B /* TransferViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferViewController.m; sourceTree = "<group>"; };
+		B4E16F7F2670C9DD0011E12B /* SuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuccessViewController.h; sourceTree = "<group>"; };
+		B4E16F802670C9DD0011E12B /* SuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
+		B4E16FA22670D8E80011E12B /* ZFScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFScanViewController.h; sourceTree = "<group>"; };
+		B4E16FA42670D8E80011E12B /* UIColor+Zirkfied.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Zirkfied.h"; sourceTree = "<group>"; };
+		B4E16FA52670D8E80011E12B /* UIImage+Zirkfied.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Zirkfied.m"; sourceTree = "<group>"; };
+		B4E16FA62670D8E80011E12B /* UIColor+Zirkfied.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Zirkfied.m"; sourceTree = "<group>"; };
+		B4E16FA72670D8E80011E12B /* UIImage+Zirkfied.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Zirkfied.h"; sourceTree = "<group>"; };
+		B4E16FA92670D8E80011E12B /* ZFColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFColor.h; sourceTree = "<group>"; };
+		B4E16FAA2670D8E80011E12B /* ZFConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFConst.m; sourceTree = "<group>"; };
+		B4E16FAB2670D8E80011E12B /* ZFConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFConst.h; sourceTree = "<group>"; };
+		B4E16FAC2670D8E80011E12B /* ZFScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFScanViewController.m; sourceTree = "<group>"; };
+		B4E16FAE2670D8E80011E12B /* ZFCodeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCodeImageView.h; sourceTree = "<group>"; };
+		B4E16FAF2670D8E80011E12B /* ZFMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFMaskView.h; sourceTree = "<group>"; };
+		B4E16FB02670D8E80011E12B /* ZFCodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCodeImageView.m; sourceTree = "<group>"; };
+		B4E16FB12670D8E80011E12B /* ZFMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFMaskView.m; sourceTree = "<group>"; };
+		B4E16FB32670D8E80011E12B /* QRCodeScanLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeScanLine@2x.png"; sourceTree = "<group>"; };
+		B4E16FB42670D8E80011E12B /* Down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Down@2x.png"; sourceTree = "<group>"; };
+		B4E16FB52670D8E80011E12B /* ScanQR3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScanQR3@2x.png"; sourceTree = "<group>"; };
+		B4E16FB62670D8E80011E12B /* ScanQR1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScanQR1@2x.png"; sourceTree = "<group>"; };
+		B4E16FB72670D8E80011E12B /* ScanQR4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScanQR4@2x.png"; sourceTree = "<group>"; };
+		B4E16FB82670D8E80011E12B /* Flashlight_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Flashlight_N@2x.png"; sourceTree = "<group>"; };
+		B4E16FB92670D8E80011E12B /* ScanQR2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScanQR2@2x.png"; sourceTree = "<group>"; };
+		B4E16FBA2670D8E80011E12B /* Flashlight_H@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Flashlight_H@2x.png"; sourceTree = "<group>"; };
 		CB141A6426706A2D000F0957 /* ExchangeRateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeRateVC.h; sourceTree = "<group>"; };
 		CB141A6526706A2D000F0957 /* ExchangeRateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRateVC.m; sourceTree = "<group>"; };
 		CB141A672670BCA8000F0957 /* ExchangeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeTableViewCell.h; sourceTree = "<group>"; };
@@ -124,6 +165,66 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B4E16FA12670D8E80011E12B /* ZFScan */ = {
+			isa = PBXGroup;
+			children = (
+				B4E16FA22670D8E80011E12B /* ZFScanViewController.h */,
+				B4E16FA32670D8E80011E12B /* Category */,
+				B4E16FA82670D8E80011E12B /* Other */,
+				B4E16FAC2670D8E80011E12B /* ZFScanViewController.m */,
+				B4E16FAD2670D8E80011E12B /* CustomView */,
+				B4E16FB22670D8E80011E12B /* resource */,
+			);
+			path = ZFScan;
+			sourceTree = "<group>";
+		};
+		B4E16FA32670D8E80011E12B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B4E16FA42670D8E80011E12B /* UIColor+Zirkfied.h */,
+				B4E16FA52670D8E80011E12B /* UIImage+Zirkfied.m */,
+				B4E16FA62670D8E80011E12B /* UIColor+Zirkfied.m */,
+				B4E16FA72670D8E80011E12B /* UIImage+Zirkfied.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		B4E16FA82670D8E80011E12B /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				B4E16FA92670D8E80011E12B /* ZFColor.h */,
+				B4E16FAA2670D8E80011E12B /* ZFConst.m */,
+				B4E16FAB2670D8E80011E12B /* ZFConst.h */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		B4E16FAD2670D8E80011E12B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				B4E16FAE2670D8E80011E12B /* ZFCodeImageView.h */,
+				B4E16FAF2670D8E80011E12B /* ZFMaskView.h */,
+				B4E16FB02670D8E80011E12B /* ZFCodeImageView.m */,
+				B4E16FB12670D8E80011E12B /* ZFMaskView.m */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		B4E16FB22670D8E80011E12B /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				B4E16FB32670D8E80011E12B /* QRCodeScanLine@2x.png */,
+				B4E16FB42670D8E80011E12B /* Down@2x.png */,
+				B4E16FB52670D8E80011E12B /* ScanQR3@2x.png */,
+				B4E16FB62670D8E80011E12B /* ScanQR1@2x.png */,
+				B4E16FB72670D8E80011E12B /* ScanQR4@2x.png */,
+				B4E16FB82670D8E80011E12B /* Flashlight_N@2x.png */,
+				B4E16FB92670D8E80011E12B /* ScanQR2@2x.png */,
+				B4E16FBA2670D8E80011E12B /* Flashlight_H@2x.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 		CB36594C266F161F00946FCC /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +277,7 @@
 		CB750F67266DD6CB00B12280 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				B4E16FA12670D8E80011E12B /* ZFScan */,
 				CB750F68266DD6CB00B12280 /* AppDelegate.h */,
 				CB750F69266DD6CB00B12280 /* AppDelegate.m */,
 				CB750F6E266DD6CB00B12280 /* ViewController.h */,
@@ -196,8 +298,12 @@
 				B4E16F5B267091D80011E12B /* TransferViewController.m */,
 				CB141A6426706A2D000F0957 /* ExchangeRateVC.h */,
 				CB141A6526706A2D000F0957 /* ExchangeRateVC.m */,
+				B4E16F7F2670C9DD0011E12B /* SuccessViewController.h */,
+				B4E16F802670C9DD0011E12B /* SuccessViewController.m */,
 				CB141A672670BCA8000F0957 /* ExchangeTableViewCell.h */,
 				CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */,
+				182C1A28267119F00086C559 /* ExchangeViewController.h */,
+				182C1A29267119F00086C559 /* ExchangeViewController.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -324,9 +430,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4E16FC32670D8E90011E12B /* ScanQR3@2x.png in Resources */,
 				CB750FA0266DDA1800B12280 /* Main.storyboard in Resources */,
+				B4E16FC82670D8E90011E12B /* Flashlight_H@2x.png in Resources */,
+				B4E16FC62670D8E90011E12B /* Flashlight_N@2x.png in Resources */,
+				B4E16FC12670D8E90011E12B /* QRCodeScanLine@2x.png in Resources */,
 				CB750F75266DD6CD00B12280 /* Assets.xcassets in Resources */,
+				B4E16FC22670D8E90011E12B /* Down@2x.png in Resources */,
 				CB750F9F266DDA1800B12280 /* LaunchScreen.storyboard in Resources */,
+				B4E16FC42670D8E90011E12B /* ScanQR1@2x.png in Resources */,
+				B4E16FC52670D8E90011E12B /* ScanQR4@2x.png in Resources */,
+				B4E16FC72670D8E90011E12B /* ScanQR2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,9 +508,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB365955266F572A00946FCC /* RSA.m in Sources */,
+				B4E16FC02670D8E90011E12B /* ZFMaskView.m in Sources */,
+				182C1A2A267119F00086C559 /* ExchangeViewController.m in Sources */,
 				CB365959266F654700946FCC /* User.m in Sources */,
 				CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */,
 				CB750F70266DD6CB00B12280 /* ViewController.m in Sources */,
+				B4E16FBE2670D8E90011E12B /* ZFScanViewController.m in Sources */,
+				B4E16FBF2670D8E90011E12B /* ZFCodeImageView.m in Sources */,
+				B4E16F812670C9DD0011E12B /* SuccessViewController.m in Sources */,
+				B4E16FBC2670D8E90011E12B /* UIColor+Zirkfied.m in Sources */,
+				B4E16FBB2670D8E90011E12B /* UIImage+Zirkfied.m in Sources */,
 				B4E16F34266F0B140011E12B /* WalletViewController.m in Sources */,
 				CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */,
 				CB141A692670BCA8000F0957 /* ExchangeTableViewCell.m in Sources */,
@@ -404,6 +525,7 @@
 				CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */,
 				CB750F7B266DD6CD00B12280 /* main.m in Sources */,
 				B4E16F5C267091D80011E12B /* TransferViewController.m in Sources */,
+				B4E16FBD2670D8E90011E12B /* ZFConst.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
