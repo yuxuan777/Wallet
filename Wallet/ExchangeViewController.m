@@ -9,7 +9,7 @@
 #import "QMUIKit.h"
 #import <AFNetworking/AFNetworking.h>
 #import "User.h"
-@interface ExchangeViewController ()
+@interface ExchangeViewController ()<UITextFieldDelegate,QMUITextFieldDelegate>
 @property (nonatomic, strong) QMUIButton *expBtn;
 @property (nonatomic, strong) QMUIButton *exgBtn;
 @property (nonatomic, strong) QMUITextField *expTF;
@@ -17,6 +17,7 @@
 @property (nonatomic, strong) QMUILabel *rateLabel;
 @property (nonatomic, strong) NSDictionary *rateDict;
 @property (nonatomic, assign) CGFloat currentRate;
+@property (nonatomic, assign) BOOL isEXP;
 
 
 @property (nonatomic, strong) NSArray *expArr;
@@ -29,13 +30,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"兑换";
+    self.currentRate = 1;
     [self getRateData];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setupUI];
     [_expBtn addTarget:self action:@selector(expBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_exgBtn addTarget:self action:@selector(exgBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [_expTF addTarget:self action:@selector(expTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
-    [_exgTF addTarget:self action:@selector(exgTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+//    [_expTF addTarget:self action:@selector(expTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+//    [_exgTF addTarget:self action:@selector(exgTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    _expTF.delegate = self;
+    _exgTF.delegate = self;
     self.expArr = @[@"DRMB",@"RMB",@"USD",@"EUR"];
     self.exgArr =  @[@"RMB",@"USD",@"EUR"];
     
@@ -46,26 +50,37 @@
     return [UIColor blackColor];
 }
 
-- (void)expTextFieldChanged:(UITextField*)textField{
-    NSString *string = textField.text;
-    self.exgTF.text = @"1";
-
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField == _expTF) {
+        CGFloat exp = textField.text.floatValue;
+        self.exgTF.text = [NSString stringWithFormat:@"%.2f", exp*_currentRate];
+    } else {
+        CGFloat exg = textField.text.floatValue;
+        self.expTF.text = [NSString stringWithFormat:@"%.2f", exg/_currentRate];
+    }
+    textField.text = [NSString stringWithFormat:@"%.2f", textField.text.floatValue];
 }
 
-- (void)exgTextFieldChanged:(UITextField*)textField{
-    NSString *string = textField.text;
-    self.expTF.text = @"2";
-    
-}
 
 - (void)getRateData {
     NSDictionary *param = @{@"token": [User sharedInstance].token};
     NSString *url = @"http://sz.zy.hn:8123/api/er";
+    if (_manager == nil) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        
+        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        manager.requestSerializer.timeoutInterval = 60;
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
+        _manager = manager;
+    }
     [_manager POST:url parameters:
     param headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([responseObject[@"status"] isEqualToString:@"ok"]) {
             self.rateDict = responseObject[@"data"];
-            self.currentRate = 1;
+            
         }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
@@ -93,10 +108,12 @@
             self.exgArr = @[@"DRMB"];
         }
         [self.expBtn setTitle:self.expArr[itemIndex] forState:UIControlStateNormal];
-        NSString *exgS = [self.exgBtn titleForState:UIControlStateNormal];
-        NSString *expS = self.expArr[itemIndex];
+        NSString *exgS = [[self.exgBtn titleForState:UIControlStateNormal] lowercaseString];
+        NSString *expS = [self.expArr[itemIndex] lowercaseString];
         self.currentRate = [self.rateDict[exgS] floatValue] / [self.rateDict[expS] floatValue];
         [self reloadRateLabel];
+
+        self.exgTF.text = [NSString stringWithFormat:@"%.2f", self.expTF.text.floatValue*self.currentRate];
         [aDialogViewController hide];
         
     };
@@ -117,10 +134,11 @@
     dialogViewController.didSelectItemBlock = ^(QMUIDialogSelectionViewController *aDialogViewController, NSUInteger itemIndex) {
         
         [self.exgBtn setTitle:self.exgArr[itemIndex] forState:UIControlStateNormal];
-        NSString *exgS = [self.exgBtn titleForState:UIControlStateNormal];
-        NSString *expS = self.expArr[itemIndex];
+        NSString *exgS = [self.exgArr[itemIndex] lowercaseString];
+        NSString *expS = [[self.expBtn titleForState:UIControlStateNormal] lowercaseString];
         self.currentRate = [self.rateDict[exgS] floatValue] / [self.rateDict[expS] floatValue];
         [self reloadRateLabel];
+        self.exgTF.text = [NSString stringWithFormat:@"%.2f", self.expTF.text.floatValue*self.currentRate];
         [aDialogViewController hide];
     };
     [dialogViewController show];
@@ -191,7 +209,7 @@
 
 - (void)exchange {
     NSString *exg = self.exgTF.text;
-    NSNumber *exg_num = [[NSNumber alloc] initWithFloat:[exg floatValue]];
+//    NSNumber *exg_num = [[NSNumber alloc] initWithDouble:[exg doubleValue]];
     if (exp > 0) {
         User *user = [User sharedInstance];
         if (user.token.length <= 0) {
@@ -201,9 +219,9 @@
         NSString *url = @"http://sz.zy.hn:8123/api/exchange";
         
         NSDictionary *params = @{@"token": user.token,
-                                 @"currency": [self.expBtn titleForState:UIControlStateNormal],
-                                 @"target": [self.exgBtn titleForState:UIControlStateNormal],
-                                 @"amount": exg_num
+                                 @"currency": [[self.expBtn titleForState:UIControlStateNormal] lowercaseString],
+                                 @"target": [[self.exgBtn titleForState:UIControlStateNormal] lowercaseString],
+                                 @"amount": @([exg floatValue])
 
         };
         if (_manager == nil) {
@@ -217,16 +235,21 @@
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
             _manager = manager;
         }
-        
+        [QMUITips showLoadingInView:self.view];
         [_manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [QMUITips hideAllTips];
             //{"status":"ok","msg":"登录成功","data":{"name":"cyx","token":"j3jtqmd2rCPJGgL0yq6w2rKs0lIpfzGl-afgHIJuAQE="}}
             NSDictionary *dict = responseObject;
             if ([dict[@"status"] isEqualToString:@"ok"]) {
-//                QMUITips showsu
+                [QMUITips showSucceed:@"兑换成功" inView:self.view hideAfterDelay:1.5];
+            } else {
+                NSString *msg = dict[@"msg"];
+                [QMUITips showError:msg inView:self.view hideAfterDelay:1.5];
             }
 
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"登录请求失败");
+            [QMUITips hideAllTips];
+            [QMUITips showError:error.description inView:self.view hideAfterDelay:1.5];
         }];
     }
 }

@@ -113,10 +113,10 @@
     NSNumber *rmb = data[@"rmb"];
     NSNumber *usd = data[@"usd"];
     
-    _drmbLabel.text = [drmb stringValue];
-    _eurLabel.text = [eur stringValue];
-    _rmbLabel.text = [rmb stringValue];
-    _usdLabel.text = [usd stringValue];
+    _drmbLabel.text = [NSString stringWithFormat:@"%.2f",[drmb qmui_CGFloatValue]];
+    _eurLabel.text = [NSString stringWithFormat:@"%.2f",[eur qmui_CGFloatValue]];
+    _rmbLabel.text = [NSString stringWithFormat:@"%.2f",[rmb qmui_CGFloatValue]];
+    _usdLabel.text = [NSString stringWithFormat:@"%.2f",[usd qmui_CGFloatValue]];
     _addressLabel.text = data[@"wallet"];
     [User sharedInstance].wallet = data[@"wallet"];
     [User sharedInstance].drmb = [drmb floatValue];
@@ -273,8 +273,8 @@
     [contain addSubview:textLabel];
     [contain addSubview:label];
     icon.frame = CGRectMake(10, 10, 30, 30);
-    textLabel.frame = CGRectMake(50, 10, 100, 30);
-    label.frame = CGRectMake(SCREEN_WIDTH-130, 10, 100, 30);
+    textLabel.frame = CGRectMake(50, 10, 70, 30);
+    label.frame = CGRectMake(120, 10, SCREEN_WIDTH - 150, 30);
     label.textAlignment = NSTextAlignmentRight;
     label.text = @"¥100";
     return contain;
