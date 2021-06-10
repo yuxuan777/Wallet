@@ -136,7 +136,7 @@
     [self.view addSubview:label4];
 
     dynamicY += 40;
-    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 50)];
+    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 40)];
     [_submitButton setFillColor:[UIColor blueColor]];
     [_submitButton setTitle:@"转账" forState:UIControlStateNormal];
     _submitButton.cornerRadius = 4;

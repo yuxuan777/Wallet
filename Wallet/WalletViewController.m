@@ -266,11 +266,11 @@
     titleLabel.numberOfLines = 0;
     
     
-    titleLabel.text = [NSString stringWithFormat:@"扫描二维码可向 %@ 转账",[User sharedInstance].name];
+    titleLabel.text = [NSString stringWithFormat:@"请使用星链支付App扫描二维码向 %@ 转账",[User sharedInstance].name];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [contentView addSubview:titleLabel];
     titleLabel.numberOfLines = 0;
-    titleLabel.frame = CGRectMake(0, 10, SCREEN_WIDTH - 60, 40);
+    titleLabel.frame = CGRectMake(20, 10, contentView.frame.size.width - 40, 40);
     
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
