@@ -48,6 +48,14 @@
     textField.text = [NSString stringWithFormat:@"%.2f", textField.text.floatValue];
 }
 
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)navigationBarTintColor {
+    return [UIColor blackColor];
+}
+
 
 - (void)setupUI {
     CGFloat dynamicY = 10;

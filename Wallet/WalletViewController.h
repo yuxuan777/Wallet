@@ -5,11 +5,11 @@
 //  Created by HuangBin Ye on 2021/6/8.
 //
 
-#import "ViewController.h"
-#import "QMUIKit.h"
+#import <QMUIKit/QMUIKit.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WalletViewController : ViewController
+@interface WalletViewController : QMUICommonViewController
 
 @end
 

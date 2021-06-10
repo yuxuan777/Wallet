@@ -39,17 +39,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = @"钱包";
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"转账" style:UIBarButtonItemStylePlain target:self action:@selector(transfer)];
+    
     [self setupUI];
     
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"转账" style:UIBarButtonItemStylePlain target:self action:@selector(transfer)];
     
 }
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     [self getData];
 }
+
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)navigationBarTintColor {
+    return [UIColor blackColor];
+}
+
+
 - (void)transfer {
     
     [self.navigationController pushViewController:[[TransferViewController alloc] init] animated:YES];

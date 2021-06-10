@@ -5,11 +5,11 @@
 //  Created by SimonYHB on 2021/6/9.
 //
 
-#import "ViewController.h"
+#import <QMUIKit/QMUIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ExchangeViewController : ViewController
+@interface ExchangeViewController : QMUICommonViewController
 
 @end
 

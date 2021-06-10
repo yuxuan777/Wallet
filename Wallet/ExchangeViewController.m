@@ -46,6 +46,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (UIColor *)titleViewTintColor {
+    return [UIColor blackColor];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField == _expTF) {
         CGFloat exp = textField.text.floatValue;
