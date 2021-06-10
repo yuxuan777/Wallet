@@ -11,13 +11,15 @@
 #import "User.h"
 #import <AFNetworking/AFNetworking.h>
 #import "ZFScanViewController.h"
-@interface TransferViewController ()
+#import "ExchangeViewController.h"
+@interface TransferViewController ()<UITextFieldDelegate,QMUITextFieldDelegate>
 @property (nonatomic, strong) QMUITextField *addressTF;
 @property (nonatomic, strong) QMUITextField *moneyTF;
 @property (nonatomic, strong) QMUITextField *remarkTF;
 @property (nonatomic, strong) QMUIFillButton *submitButton;
 @property (nonatomic, strong) QMUIButton *smButton;
 @property (nonatomic, strong) QMUILabel *drmbLabel;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 @end
 
 @implementation TransferViewController
@@ -27,14 +29,25 @@
     self.title = @"转账";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self setupUI];
-    _drmbLabel.text = [NSString stringWithFormat:@"当前可用DRMB：%.2f", [User sharedInstance].drmb];
+    
     if (self.toAddress) {
         _addressTF.text = self.toAddress;
     }
-
-    
+    self.moneyTF.delegate = self;
 
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+    [self getData];
+    
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    textField.text = [NSString stringWithFormat:@"%.2f", textField.text.floatValue];
+}
+
 
 - (void)setupUI {
     CGFloat dynamicY = 10;
@@ -66,11 +79,13 @@
     
     _drmbLabel.frame = CGRectMake(70, dynamicY, SCREEN_WIDTH - 130, 30);
     _drmbLabel.textAlignment = NSTextAlignmentRight;
-    QMUIButton *exchangeBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60, dynamicY, 50, 30)];
-    [exchangeBtn setTitle:@"兑换" forState:UIControlStateNormal];
-    exchangeBtn.titleLabel.font = UIFontMake(16);
+    QMUIButton *exchangeBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, dynamicY, 30, 30)];
+    [exchangeBtn setBackgroundImage:UIImageMake(@"t_ex") forState:UIControlStateNormal];
+    [exchangeBtn addTarget:self action:@selector(exchange) forControlEvents:UIControlEventTouchUpInside];
+//    [exchangeBtn setTitle:@"兑换" forState:UIControlStateNormal];
+//    exchangeBtn.titleLabel.font = UIFontMake(16);
     
-    [exchangeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    
     [self.view addSubview:exchangeBtn];
     [self.view addSubview:_drmbLabel];
     dynamicY += 40;
@@ -79,7 +94,7 @@
    
     _moneyTF.font = UIFontMake(36);
     _moneyTF.layer.cornerRadius = 4;
-    _moneyTF.placeholder = @"0";
+    _moneyTF.placeholder = @"0.00";
     _moneyTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     _moneyTF.backgroundColor = [UIColor whiteColor];
     _moneyTF.keyboardType = UIKeyboardTypeNumberPad;
@@ -101,9 +116,13 @@
     [self.view addSubview:lineView];
     
     dynamicY += 80;
-    QMUILabel *label4 = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
-    label4.text = @"交易手续费：0%";
-    label4.textColor = [UIColor redColor];
+    QMUILabel *label4 = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorGreen];
+
+    label4.textColor = [UIColor greenColor];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"交易手续费：0.00%"];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 6)];
+
+    label4.attributedText = str;
     label4.frame = CGRectMake(0, dynamicY, SCREEN_WIDTH, 30);
     label4.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:label4];
@@ -116,9 +135,49 @@
     
     [_smButton addTarget:self action:@selector(scan) forControlEvents:UIControlEventTouchUpInside];
     [_submitButton addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
-    [exchangeBtn addTarget:self action:@selector(exchange) forControlEvents:UIControlEventTouchUpInside];
+
 
 }
+
+-(void)getData {
+   User *user = [User sharedInstance];
+   if (user.token.length <= 0) {
+       return;
+   }
+   
+   NSString *url = @"http://sz.zy.hn:8123/api/info";
+   
+   NSDictionary *params = @{@"token": user.token
+   };
+   if (_manager == nil) {
+       AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+       
+       manager.requestSerializer = [AFJSONRequestSerializer serializer];
+       manager.responseSerializer = [AFJSONResponseSerializer serializer];
+       
+       [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+       manager.requestSerializer.timeoutInterval = 60;
+       manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", nil];
+       _manager = manager;
+   }
+   
+   [_manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+       //{"status":"ok","msg":"登录成功","data":{"name":"cyx","token":"j3jtqmd2rCPJGgL0yq6w2rKs0lIpfzGl-afgHIJuAQE="}}
+       NSDictionary *dict = responseObject;
+       if ([dict[@"status"] isEqualToString:@"ok"]) {
+           NSNumber *num = dict[@"data"][@"drmb"];
+           self.drmbLabel.text = [NSString stringWithFormat:@"当前可用DRMB：%.2f", [num floatValue]];
+       }
+
+   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       NSLog(@"登录请求失败");
+   }];
+
+
+   // 获取汇率
+
+}
+
 
 - (void)scan {
 
@@ -195,7 +254,8 @@
 }
 
 - (void)exchange {
-    
+    ExchangeViewController *vc = [[ExchangeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
