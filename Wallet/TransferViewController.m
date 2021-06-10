@@ -129,7 +129,7 @@
     label4.textColor = [UIColor greenColor];
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"转账手续费：0.00%"];
     [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 6)];
-
+    [label4 setHidden:YES];
     label4.attributedText = str;
     label4.frame = CGRectMake(0, dynamicY, SCREEN_WIDTH, 30);
     label4.textAlignment = NSTextAlignmentCenter;

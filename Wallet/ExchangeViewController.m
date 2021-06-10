@@ -187,16 +187,26 @@
     [self.view addSubview:_exgBtn];
     _exgTF = [[QMUITextField alloc] initWithFrame:CGRectMake(120, dynamicY, SCREEN_WIDTH - 140, 50)];
     _exgTF.textAlignment = NSTextAlignmentRight;
-    _exgTF.placeholder = @"预计支出数量";
+    _exgTF.placeholder = @"预计获得数量";
     [self.view addSubview:_exgTF];
     _exgTF.keyboardType = UIKeyboardTypeNumberPad;
     dynamicY += 70;
     
-    _rateLabel = [[QMUILabel alloc] initWithFrame:CGRectMake(20, dynamicY, SCREEN_WIDTH-40, 30)];
+    _rateLabel = [[QMUILabel alloc] initWithFrame:CGRectMake(20, dynamicY, SCREEN_WIDTH-40, 20)];
     _rateLabel.font = [UIFont systemFontOfSize:14];
     _rateLabel.textColor = [UIColor qmui_colorWithHexString:@"999999"];
     _rateLabel.text = @"当前汇率 1DRMB = 1RMB";
     [self.view addSubview:_rateLabel];
+    dynamicY += 20;
+    
+    QMUILabel *label4 = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGreen];
+
+    label4.textColor = [UIColor greenColor];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"兑换手续费：0.00%"];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor qmui_colorWithHexString:@"999999"] range:NSMakeRange(0, 6)];
+    label4.attributedText = str;
+    label4.frame = CGRectMake(20, dynamicY, SCREEN_WIDTH-40, 20);
+    [self.view addSubview:label4];
     dynamicY += 40;
     
     QMUIFillButton *button = [[QMUIFillButton alloc] initWithFillColor:[UIColor blueColor] titleTextColor:[UIColor whiteColor]];
