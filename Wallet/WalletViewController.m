@@ -109,7 +109,7 @@
     NSString *url = @"http://sz.zy.hn:8123/api/er";
     [_manager POST:url parameters:
     param headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([dict[@"status"] isEqualToString:@"ok"]) {
+        if ([responseObject[@"status"] isEqualToString:@"ok"]) {
             NSDictionary *rateData = responseObject[@"data"];
             NSNumber *rateEur = rateData[@"eur"];
             NSNumber *rateUsd = rateData[@"usd"];
@@ -134,8 +134,8 @@
     CGFloat dynamicY = 10;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 , dynamicY, SCREEN_WIDTH - 20, 180)];
-    dynamicY += 180;
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10 , dynamicY, SCREEN_WIDTH - 20, 160)];
+    dynamicY += 160;
     bgView.backgroundColor = [UIColor blueColor];
     bgView.layer.cornerRadius = 8;
     bgView.layer.masksToBounds = YES;
