@@ -11,6 +11,7 @@
 #import "User.h"
 #import "TransferViewController.h"
 #import "ZFScanViewController.h"
+
 @interface WalletViewController ()
 
 @property (nonatomic, strong) QMUILabel *addressLabel;
@@ -170,19 +171,20 @@
     label2.text = @"资产折合(RMB)：";
     _addressLabel.textColor = [UIColor whiteColor];
     _addressLabel.font = [UIFont systemFontOfSize:14];
-    _addressLabel.numberOfLines = 0;
     [_addressButton setImage:[UIImage imageNamed:@"ewm"] forState:UIControlStateNormal];
     [_smButton setImage:[UIImage imageNamed:@"sm"] forState:UIControlStateNormal];
     _totalLabel.textColor = [UIColor whiteColor];
     _totalLabel.font = [UIFont systemFontOfSize:24];
     
-    
+    QMUIButton *dupBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(bgView.qmui_width - 90, 55, 20, 20)];
+    [dupBtn setBackgroundImage:UIImageMake(@"dup") forState:UIControlStateNormal];
+    [dupBtn addTarget:self action:@selector(dupAddress) forControlEvents:UIControlEventTouchUpInside];
     
     
     label1.frame = CGRectMake(20, 10, 60, 18);
     _addressButton.frame = CGRectMake(80, 10, 20, 20);
     _smButton.frame = CGRectMake(bgView.qmui_width - 60, 20, 40, 40);
-    _addressLabel.frame = CGRectMake(20, 40, bgView.qmui_width - 90, 50);
+    _addressLabel.frame = CGRectMake(20, 40, bgView.qmui_width - 110, 50);
     label2.frame = CGRectMake(20, bgView.frame.size.height - 40, 120, 30);
     _totalLabel.textAlignment = NSTextAlignmentRight;
     _totalLabel.frame = CGRectMake(140, bgView.frame.size.height - 40, bgView.frame.size.width - 160, 30);
@@ -195,6 +197,7 @@
     [bgView addSubview:label2];
     [bgView addSubview:_totalLabel];
     [bgView addSubview:_smButton];
+    [bgView addSubview:dupBtn];
     
     [_smButton addTarget:self action:@selector(scanClick) forControlEvents:UIControlEventTouchUpInside];
     [_addressButton addTarget:self action:@selector(qrClick) forControlEvents:UIControlEventTouchUpInside];
@@ -240,12 +243,39 @@
 }
 
 
+- (void)dupAddress {
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = self.addressLabel.text;
+    [QMUITips showSucceed:@"复制成功" inView:self.view hideAfterDelay:1.5];
+}
 
 - (void)qrClick {
-    UIImage *img = [SGQRCodeManager generateQRCodeWithData:[User sharedInstance].wallet size:SCREEN_WIDTH - 80];
+    UIView *bgView = [[UIView alloc] initWithFrame:self.view.bounds];
+    bgView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(30, (SCREEN_HEIGHT - SCREEN_WIDTH)*0.5, SCREEN_WIDTH - 60, SCREEN_WIDTH - 30)];
+    contentView.backgroundColor = [UIColor blueColor];
+//    UIImage *img = [SGQRCodeManager generateQRCodeWithData:[User sharedInstance].wallet size:SCREEN_WIDTH - 120];
+    UIImage *img = [SGQRCodeManager generateQRCodeWithData:[User sharedInstance].wallet size:SCREEN_WIDTH - 120 logoImage:UIImageMake(@"AppIcon") ratio:0.25];
     UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
+    [contentView addSubview:imgView];
+    imgView.frame = CGRectMake(30, 60, SCREEN_WIDTH - 120, SCREEN_WIDTH - 120);
+    
+    QMUILabel *titleLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:[UIColor whiteColor]];
+    titleLabel.numberOfLines = 0;
+    
+    
+    titleLabel.text = [NSString stringWithFormat:@"请使用星链支付App扫描二维码向 %@ 转账",[User sharedInstance].name];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [contentView addSubview:titleLabel];
+    titleLabel.numberOfLines = 0;
+    titleLabel.frame = CGRectMake(20, 10, contentView.frame.size.width - 40, 40);
+    
+    
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
-    modalViewController.contentView = imgView;
+    modalViewController.contentView = contentView;
+    modalViewController.dimmingView = bgView;
     [modalViewController showWithAnimated:YES completion:nil];
 }
 

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "扫码.png",
+      "filename" : "dup.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "扫码-1.png",
+      "filename" : "dup-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "扫码-2.png",
+      "filename" : "dup-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

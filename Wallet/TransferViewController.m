@@ -59,7 +59,7 @@
 
 - (void)setupUI {
     CGFloat dynamicY = 10;
-    self.view.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
+    self.view.backgroundColor = [UIColor whiteColor];
     UILabel *label1 = [[UILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorBlack];
     label1.text = @"收款地址";
     [self.view addSubview:label1];
@@ -71,7 +71,7 @@
     _addressTF.layer.cornerRadius = 4;
     _addressTF.placeholder = @"钱包地址";
     _addressTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    _addressTF.backgroundColor = [UIColor whiteColor];
+    _addressTF.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
     [self.view addSubview:_addressTF];
     
     _smButton = [[QMUIButton alloc] init];
@@ -104,7 +104,7 @@
     _moneyTF.layer.cornerRadius = 4;
     _moneyTF.placeholder = @"0.00";
     _moneyTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    _moneyTF.backgroundColor = [UIColor whiteColor];
+    _moneyTF.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
     _moneyTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_moneyTF];
     
@@ -116,18 +116,18 @@
     _remarkTF.layer.cornerRadius = 4;
     _remarkTF.placeholder = @"备注";
     _remarkTF.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    _remarkTF.backgroundColor = [UIColor whiteColor];
+    _remarkTF.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
     [self.view addSubview:_remarkTF];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(20, dynamicY, SCREEN_WIDTH - 40, 1)];
-    lineView.backgroundColor = [UIColor qmui_colorWithHexString:@"f6f6f6"];
+    lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
     
     dynamicY += 80;
     QMUILabel *label4 = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorGreen];
 
     label4.textColor = [UIColor greenColor];
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"交易手续费：0.00%"];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"转账手续费：0.00%"];
     [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 6)];
 
     label4.attributedText = str;
@@ -136,9 +136,10 @@
     [self.view addSubview:label4];
 
     dynamicY += 40;
-    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 50)];
+    _submitButton = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue frame:CGRectMake(30, dynamicY, SCREEN_WIDTH-60, 40)];
     [_submitButton setFillColor:[UIColor blueColor]];
     [_submitButton setTitle:@"转账" forState:UIControlStateNormal];
+    _submitButton.cornerRadius = 4;
     [self.view addSubview:_submitButton];
     
     [_smButton addTarget:self action:@selector(scan) forControlEvents:UIControlEventTouchUpInside];

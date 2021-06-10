@@ -159,7 +159,7 @@
     view.backgroundColor = [UIColor qmui_colorWithHexString:@"ebebeb"];
     QMUILabel *label = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:15] textColor:[UIColor grayColor]];
     label.frame = CGRectMake(20, 0, SCREEN_WIDTH, view.frame.size.height);
-    label.text = @"每1元数字人民币货币预计可以兑换：";
+    label.text = @"每单位 DRMB 预计可以兑换：";
     [view addSubview:label];
     return view;
 }
