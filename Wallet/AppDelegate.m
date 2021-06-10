@@ -12,6 +12,7 @@
 #import "WalletViewController.h"
 #import "ExchangeRateVC.h"
 #import "ExchangeViewController.h"
+#import "IQKeyboardManager.h"
 
 @interface AppDelegate ()
 

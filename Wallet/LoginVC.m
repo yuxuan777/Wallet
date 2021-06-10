@@ -52,19 +52,27 @@
     imageView.image = UIImageMake(@"icon-1024-1");
     [self.view addSubview:imageView];
     
-    CGFloat textW = SCREEN_WIDTH - 80;
+    CGFloat iconWH = 20;
+    CGFloat textW = SCREEN_WIDTH - 120;
+    
+    CGFloat sumW = iconWH + 10 + textW;
+    CGFloat iconX = (SCREEN_WIDTH - sumW) * 0.5;
+    CGFloat iconY = imageView.qmui_bottom + 20 + 10;
+    UIImageView *iconView1 = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, iconY, iconWH, iconWH)];
+    iconView1.image = UIImageMake(@"用户名");
+//    iconView1.backgroundColor = [UIColor redColor];
+    [self.view addSubview:iconView1];
+    
     CGFloat textH = 44;
-    CGFloat textY = CGRectGetMaxY(imageView.frame) + 20;
-    CGFloat textX = (SCREEN_WIDTH - textW) * 0.5;
+    CGFloat textY = iconY - 10;
+    CGFloat textX = iconView1.qmui_right + 10;
     QMUITextField *nameField = [[QMUITextField alloc] initWithFrame:CGRectMake(textX, textY, textW, textH)];
     nameField.placeholder = @"用户名";
     nameField.font = UIFontMake(18);
-//    nameField.layer.cornerRadius = 2;
-//    nameField.layer.borderColor = UIColorSeparator.CGColor;
-//    nameField.layer.borderWidth = PixelOne;
     nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     nameField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     nameField.text = @"cyx";
+//    nameField.backgroundColor = [UIColor redColor];
     [self.view addSubview:nameField];
     self.nameField = nameField;
     
@@ -72,15 +80,20 @@
     line1.backgroundColor = UIColorSeparator;
     [self.view addSubview:line1];
     
-    CGFloat pwdY = CGRectGetMaxY(nameField.frame) + 10;
+    iconY = nameField.qmui_bottom + 20;
+    UIImageView *iconView2 = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, iconY, iconWH, iconWH)];
+    iconView2.image = UIImageMake(@"密码");
+//    iconView2.backgroundColor = [UIColor redColor];
+    [self.view addSubview:iconView2];
+    
+    CGFloat pwdY = nameField.qmui_bottom + 10;
+    
     QMUITextField *pwdField = [[QMUITextField alloc] initWithFrame:CGRectMake(textX, pwdY, textW, textH)];
     pwdField.placeholder = @"密码";
     pwdField.font = UIFontMake(18);
     pwdField.secureTextEntry = YES;
     pwdField.text = @"12345678";
-//    pwdField.layer.cornerRadius = 2;
-//    pwdField.layer.borderColor = UIColorSeparator.CGColor;
-//    pwdField.layer.borderWidth = PixelOne;
+//    pwdField.backgroundColor = [UIColor redColor];
     pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwdField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     [self.view addSubview:pwdField];
@@ -107,17 +120,6 @@
     }
 
     [self requestLogin];
-    
-//    //跳转
-//    QMUITabBarViewController *tabBarViewController = [[QMUITabBarViewController alloc] init];
-//
-//    //首页
-//    WalletViewController *walletVC = [[WalletViewController alloc] init];
-//    walletVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"wallet" image:UIImageMake(@"wallet") tag:0];
-//    walletVC.tabBarItem.selectedImage = UIImageMake(@"wallet");
-//    tabBarViewController.viewControllers = @[walletVC];
-//
-//    [UIApplication sharedApplication].keyWindow.rootViewController = tabBarViewController;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
