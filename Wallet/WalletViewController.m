@@ -38,6 +38,8 @@
 @property (nonatomic, assign) CGFloat eur;
 @property (nonatomic, assign) CGFloat total;
 
+@property (nonatomic, strong) NSDictionary *rateDict;
+
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 
@@ -61,6 +63,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self getData];
+}
+- (void)loadGetData {
+    [QMUITips showLoadingInView:self.view];
     [self getData];
 }
 
@@ -100,6 +106,7 @@
     }
     
     [_manager POST:url parameters:params headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [QMUITips hideAllTips];
         //{"status":"ok","msg":"登录成功","data":{"name":"cyx","token":"j3jtqmd2rCPJGgL0yq6w2rKs0lIpfzGl-afgHIJuAQE="}}
         NSDictionary *dict = responseObject;
         if ([dict[@"status"] isEqualToString:@"ok"]) {
@@ -107,6 +114,7 @@
         }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [QMUITips hideAllTips];
         NSLog(@"登录请求失败");
     }];
 
@@ -137,24 +145,39 @@
     _addressLabel.text = data[@"wallet"];
     [User sharedInstance].wallet = data[@"wallet"];
     [User sharedInstance].drmb = [drmb floatValue];
-    NSDictionary *param = @{@"token": [User sharedInstance].token};
-    NSString *url = @"http://sz.zy.hn:8123/api/er";
-    [_manager POST:url parameters:
-    param headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([responseObject[@"status"] isEqualToString:@"ok"]) {
-            NSDictionary *rateData = responseObject[@"data"];
-            NSNumber *rateEur = rateData[@"eur"];
-            NSNumber *rateUsd = rateData[@"usd"];
-            CGFloat total = rmb.qmui_CGFloatValue + drmb.qmui_CGFloatValue + eur.qmui_CGFloatValue/rateEur.qmui_CGFloatValue + usd.qmui_CGFloatValue/rateUsd.qmui_CGFloatValue;
-            self.total = total;
-            if (!_eyeButton.isSelected) {
-                _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", total];
+    
+    if (self.rateDict == nil) {
+        NSDictionary *param = @{@"token": [User sharedInstance].token};
+        NSString *url = @"http://sz.zy.hn:8123/api/er";
+        [_manager POST:url parameters:
+        param headers:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            if ([responseObject[@"status"] isEqualToString:@"ok"]) {
+                NSDictionary *rateData = responseObject[@"data"];
+                self.rateDict = rateData;
+                NSNumber *rateEur = rateData[@"eur"];
+                NSNumber *rateUsd = rateData[@"usd"];
+                CGFloat total = rmb.qmui_CGFloatValue + drmb.qmui_CGFloatValue + eur.qmui_CGFloatValue/rateEur.qmui_CGFloatValue + usd.qmui_CGFloatValue/rateUsd.qmui_CGFloatValue;
+                self.total = total;
+                if (!_eyeButton.isSelected) {
+                    _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", total];
+                }
+                
             }
-            
-        }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
-        }];
+            }];
+    } else {
+        NSNumber *rateEur = self.rateDict[@"eur"];
+        NSNumber *rateUsd = self.rateDict[@"usd"];
+        CGFloat total = rmb.qmui_CGFloatValue + drmb.qmui_CGFloatValue + eur.qmui_CGFloatValue/rateEur.qmui_CGFloatValue + usd.qmui_CGFloatValue/rateUsd.qmui_CGFloatValue;
+        self.total = total;
+        if (!_eyeButton.isSelected) {
+            _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", total];
+        }
+        
+    }
+    
+   
     /*
      {
          drmb = 0;
@@ -215,7 +238,7 @@
     
     QMUIButton *reloadBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(bgView.qmui_width - 40, bgView.frame.size.height - 40, 30, 30)];
     [reloadBtn setBackgroundImage:UIImageMake(@"reload") forState:UIControlStateNormal];
-    [reloadBtn addTarget:self action:@selector(getData) forControlEvents:UIControlEventTouchUpInside];
+    [reloadBtn addTarget:self action:@selector(loadGetData) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:reloadBtn];
     
     _addressLabel.text = @"";
