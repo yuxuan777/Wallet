@@ -92,7 +92,7 @@
     pwdField.placeholder = @"密码";
     pwdField.font = UIFontMake(18);
     pwdField.secureTextEntry = YES;
-    pwdField.text = @"12345678";
+//    pwdField.text = @"12345678";
 //    pwdField.backgroundColor = [UIColor redColor];
     pwdField.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwdField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
