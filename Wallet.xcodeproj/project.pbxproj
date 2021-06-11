@@ -28,6 +28,7 @@
 		B4E16FC82670D8E90011E12B /* Flashlight_H@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E16FBA2670D8E80011E12B /* Flashlight_H@2x.png */; };
 		CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A6526706A2D000F0957 /* ExchangeRateVC.m */; };
 		CB141A692670BCA8000F0957 /* ExchangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */; };
+		CB141A6C2672EEF1000F0957 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB141A6B2672EEF1000F0957 /* InitialViewController.m */; };
 		CB36594B266F159400946FCC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594A266F159400946FCC /* LoginVC.m */; };
 		CB36594F266F163000946FCC /* UIViewController+CurrentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36594E266F163000946FCC /* UIViewController+CurrentVC.m */; };
 		CB365955266F572A00946FCC /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB365953266F572A00946FCC /* RSA.m */; };
@@ -94,6 +95,8 @@
 		CB141A6526706A2D000F0957 /* ExchangeRateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRateVC.m; sourceTree = "<group>"; };
 		CB141A672670BCA8000F0957 /* ExchangeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeTableViewCell.h; sourceTree = "<group>"; };
 		CB141A682670BCA8000F0957 /* ExchangeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeTableViewCell.m; sourceTree = "<group>"; };
+		CB141A6A2672EEF1000F0957 /* InitialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
+		CB141A6B2672EEF1000F0957 /* InitialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
 		CB365949266F159400946FCC /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		CB36594A266F159400946FCC /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		CB36594D266F163000946FCC /* UIViewController+CurrentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CurrentVC.h"; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				CB750F69266DD6CB00B12280 /* AppDelegate.m */,
 				CB750F6E266DD6CB00B12280 /* ViewController.h */,
 				CB750F6F266DD6CB00B12280 /* ViewController.m */,
+				CB141A6A2672EEF1000F0957 /* InitialViewController.h */,
+				CB141A6B2672EEF1000F0957 /* InitialViewController.m */,
 				CB365956266F653700946FCC /* Model */,
 				CB365952266F572A00946FCC /* RSA */,
 				CB36594C266F161F00946FCC /* Category */,
@@ -522,6 +527,7 @@
 				CB750F6A266DD6CB00B12280 /* AppDelegate.m in Sources */,
 				CB141A692670BCA8000F0957 /* ExchangeTableViewCell.m in Sources */,
 				CB36594B266F159400946FCC /* LoginVC.m in Sources */,
+				CB141A6C2672EEF1000F0957 /* InitialViewController.m in Sources */,
 				CB141A6626706A2D000F0957 /* ExchangeRateVC.m in Sources */,
 				CB750F7B266DD6CD00B12280 /* main.m in Sources */,
 				B4E16F5C267091D80011E12B /* TransferViewController.m in Sources */,

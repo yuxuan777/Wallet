@@ -6,13 +6,13 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
 #import "LoginVC.h"
 #import <QMUIKit/QMUIKit.h>
 #import "WalletViewController.h"
 #import "ExchangeRateVC.h"
 #import "ExchangeViewController.h"
 #import "IQKeyboardManager.h"
+#import "InitialViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,11 +26,17 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    LoginVC *vc = [[LoginVC alloc] init];
-    QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
+//    UIView *lunchView = [[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:nil options:nil][0];
+    
+    InitialViewController *initialViewCtrl = [[InitialViewController alloc] init];
+    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:initialViewCtrl];
+    
+//    LoginVC *vc = [[LoginVC alloc] init];
+//    QMUINavigationController *nav = [[QMUINavigationController alloc] initWithRootViewController:vc];
     
     
-    self.window.rootViewController = nav;
+    self.window.rootViewController = initialViewCtrl;
+    [self.window makeKeyAndVisible];
     
 //    //跳转
 //    QMUITabBarViewController *tabBarViewController = [[QMUITabBarViewController alloc] init];
@@ -49,8 +55,6 @@
 //
 //    tabBarViewController.viewControllers = @[nav1, nav2];
 //    self.window.rootViewController = tabBarViewController;
-
-    [self.window makeKeyAndVisible];
     
     return YES;
 }
