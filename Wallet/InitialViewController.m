@@ -50,7 +50,7 @@
         
     } completion:^(BOOL finished) {
 
-        [UIView animateWithDuration:0.8f delay:1.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.6f delay:1.0f options:UIViewAnimationOptionCurveLinear animations:^{
             
             launchView.alpha = 0.0f;
 //            launchView.layer.transform = CATransform3DScale(CATransform3DIdentity, 2.0f, 2.0f, 1.0f);
