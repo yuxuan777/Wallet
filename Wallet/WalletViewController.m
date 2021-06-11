@@ -22,13 +22,21 @@
 @property (nonatomic, strong) QMUIButton *usdButton;
 @property (nonatomic, strong) QMUIButton *eurButton;
 @property (nonatomic, strong) QMUIButton *smButton;
+@property (nonatomic, strong) QMUIButton *eyeButton;
 @property (nonatomic, strong) SGQRCodeManager *cameraManager;
 
-// 币种
+// 币种展示
 @property (nonatomic, strong) QMUILabel *drmbLabel;
 @property (nonatomic, strong) QMUILabel *rmbLabel;
 @property (nonatomic, strong) QMUILabel *usdLabel;
 @property (nonatomic, strong) QMUILabel *eurLabel;
+
+// 币
+@property (nonatomic, assign) CGFloat drmb;
+@property (nonatomic, assign) CGFloat rmb;
+@property (nonatomic, assign) CGFloat usd;
+@property (nonatomic, assign) CGFloat eur;
+@property (nonatomic, assign) CGFloat total;
 
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
 
@@ -114,10 +122,18 @@
     NSNumber *rmb = data[@"rmb"];
     NSNumber *usd = data[@"usd"];
     
-    _drmbLabel.text = [NSString stringWithFormat:@"%.2f",[drmb qmui_CGFloatValue]];
-    _eurLabel.text = [NSString stringWithFormat:@"%.2f",[eur qmui_CGFloatValue]];
-    _rmbLabel.text = [NSString stringWithFormat:@"%.2f",[rmb qmui_CGFloatValue]];
-    _usdLabel.text = [NSString stringWithFormat:@"%.2f",[usd qmui_CGFloatValue]];
+    self.drmb = [drmb qmui_CGFloatValue];
+    self.eur = [eur qmui_CGFloatValue];
+    self.rmb = [rmb qmui_CGFloatValue];
+    self.usd = [usd qmui_CGFloatValue];
+    
+    if (!_eyeButton.isSelected) {
+        _drmbLabel.text = [NSString stringWithFormat:@"%.2f",self.drmb];
+        _eurLabel.text = [NSString stringWithFormat:@"%.2f",self.eur];
+        _rmbLabel.text = [NSString stringWithFormat:@"%.2f",self.rmb];
+        _usdLabel.text = [NSString stringWithFormat:@"%.2f",self.usd];
+    }
+    
     _addressLabel.text = data[@"wallet"];
     [User sharedInstance].wallet = data[@"wallet"];
     [User sharedInstance].drmb = [drmb floatValue];
@@ -130,7 +146,11 @@
             NSNumber *rateEur = rateData[@"eur"];
             NSNumber *rateUsd = rateData[@"usd"];
             CGFloat total = rmb.qmui_CGFloatValue + drmb.qmui_CGFloatValue + eur.qmui_CGFloatValue/rateEur.qmui_CGFloatValue + usd.qmui_CGFloatValue/rateUsd.qmui_CGFloatValue;
-            _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", total];
+            self.total = total;
+            if (!_eyeButton.isSelected) {
+                _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", total];
+            }
+            
         }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
@@ -166,6 +186,8 @@
     label1.textColor = [UIColor whiteColor];
     label1.font = [UIFont boldSystemFontOfSize:18];
     label1.text = @"DRMB";
+    [label1 setUserInteractionEnabled:YES];
+    [label1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrClick)]];
     label2.textColor = [UIColor whiteColor];
     label2.font = [UIFont systemFontOfSize:14];
     label2.text = @"资产折合(RMB)：";
@@ -175,6 +197,8 @@
     [_smButton setImage:[UIImage imageNamed:@"sm"] forState:UIControlStateNormal];
     _totalLabel.textColor = [UIColor whiteColor];
     _totalLabel.font = [UIFont systemFontOfSize:24];
+    
+    
     
     QMUIButton *dupBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(bgView.qmui_width - 90, 55, 20, 20)];
     [dupBtn setBackgroundImage:UIImageMake(@"dup") forState:UIControlStateNormal];
@@ -187,7 +211,12 @@
     _addressLabel.frame = CGRectMake(20, 40, bgView.qmui_width - 110, 50);
     label2.frame = CGRectMake(20, bgView.frame.size.height - 40, 120, 30);
     _totalLabel.textAlignment = NSTextAlignmentRight;
-    _totalLabel.frame = CGRectMake(140, bgView.frame.size.height - 40, bgView.frame.size.width - 160, 30);
+    _totalLabel.frame = CGRectMake(140, bgView.frame.size.height - 40, bgView.frame.size.width - 180, 30);
+    
+    QMUIButton *reloadBtn = [[QMUIButton alloc] initWithFrame:CGRectMake(bgView.qmui_width - 40, bgView.frame.size.height - 40, 30, 30)];
+    [reloadBtn setBackgroundImage:UIImageMake(@"reload") forState:UIControlStateNormal];
+    [reloadBtn addTarget:self action:@selector(getData) forControlEvents:UIControlEventTouchUpInside];
+    [bgView addSubview:reloadBtn];
     
     _addressLabel.text = @"";
     _totalLabel.text =  @"";
@@ -203,14 +232,21 @@
     [_addressButton addTarget:self action:@selector(qrClick) forControlEvents:UIControlEventTouchUpInside];
     
     QMUILabel *coinLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont boldSystemFontOfSize:18] textColor:[UIColor grayColor]];
-    coinLabel.frame = CGRectMake(10, dynamicY + 20, SCREEN_WIDTH - 20, 30);
+    coinLabel.frame = CGRectMake(10, dynamicY + 20, SCREEN_WIDTH - 70, 30);
     coinLabel.text = @"资产";
+    self.eyeButton = [[QMUIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 40, dynamicY + 20, 30, 30)];
+    [self.eyeButton setBackgroundImage:UIImageMake(@"e1") forState:UIControlStateNormal];
+    [self.eyeButton setBackgroundImage:UIImageMake(@"e2") forState:UIControlStateSelected];
+    [self.eyeButton addTarget:self action:@selector(eyeClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.eyeButton];
     dynamicY += 50;
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(10, dynamicY, SCREEN_WIDTH - 20, 1)];
     dynamicY += 1;
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:coinLabel];
     [self.view addSubview:lineView];
+    
+
     
     
     _drmbLabel = [[QMUILabel alloc] qmui_initWithFont:[UIFont systemFontOfSize:18] textColor:[UIColor blackColor]];
@@ -238,6 +274,26 @@
     dynamicY += 50;
     
      
+    
+    
+}
+
+- (void)eyeClick {
+    self.eyeButton.selected = !self.eyeButton.selected;
+    if (self.eyeButton.selected) {
+        //*
+        self.totalLabel.text = @"****";
+        self.drmbLabel.text = @"****";
+        self.rmbLabel.text = @"****";
+        self.eurLabel.text = @"****";
+        self.usdLabel.text = @"****";
+    } else {
+        _drmbLabel.text = [NSString stringWithFormat:@"%.2f",self.drmb];
+        _eurLabel.text = [NSString stringWithFormat:@"%.2f",self.eur];
+        _rmbLabel.text = [NSString stringWithFormat:@"%.2f",self.rmb];
+        _usdLabel.text = [NSString stringWithFormat:@"%.2f",self.usd];
+        _totalLabel.text = [NSString stringWithFormat:@"¥ %.2f", self.total];
+    }
     
     
 }
